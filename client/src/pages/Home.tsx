@@ -11,7 +11,15 @@ import { Check, ChevronRight, Mail, Facebook, Linkedin, Twitter } from "lucide-r
  * - Warm gold (#FBBF24) for secondary accents
  * - Poppins for display, Inter for body
  * - Smooth animations and micro-interactions
+ * - Fiverr-only affiliate focus with high conversion optimization
  */
+
+// Fiverr Affiliate Links
+const FIVERR_LINKS = {
+  budget: "https://pro.fiverr.com/freelancers/hamzadeswali?utm_source=1139651&utm_medium=cx_affiliate&utm_campaign=&afp=&cxd_token=1139651_44793031&show_join=true",
+  premium: "https://pro.fiverr.com/freelancers/shailene_george?utm_source=1139651&utm_medium=cx_affiliate&utm_campaign=_bus-y_bus-y&afp=&cxd_token=1139651_44771587&show_join=true&ref_ctx_id=15880591fd104f7dac8e98bcabf2df37&expertises=type%3Aleaf_cat_id%2Cid%3A49%2CparentId%3A49%7Ctype%3Askill%2Cid%3A617fa6620565f07789006535%2CparentId%3Anull%7Ctype%3Askill%2Cid%3A617fa63d0565f07789005a5e%2CparentId%3Anull%7Ctype%3Askill%2Cid%3A617fa65a0565f077890062d0%2CparentId%3Anull&gigs=id%3A142024147%2Cpckg_id%3A1&imp_id=4d5d5a02-95e6-4a8d-b7eb-600af82e5482&source=expert_listings_page&is_experiential=true",
+  vip: "https://pro.fiverr.com/freelancers/explorance?utm_source=1139651&utm_medium=cx_affiliate&utm_campaign=_bus-y&afp=&cxd_token=1139651_44793043&show_join=true&ref_ctx_id=c86858ecc5314ce6838c8f86cbacafa1&expertises=type%3Aleaf_cat_id%2Cid%3A49%2CparentId%3A49%7Ctype%3Askill%2Cid%3A617fa6650565f0778900660f%2CparentId%3Anull%7Ctype%3Askill%2Cid%3A617fa6510565f0778900601a%2CparentId%3Anull%7Ctype%3Askill%2Cid%3A617fa6650565f077890065e7%2CparentId%3Anull&gigs=id%3A454378697%2Cpckg_id%3A1%7Cid%3A307424447%2Cpckg_id%3A1%7Cid%3A194009784%2Cpckg_id%3A1&imp_id=e3c035bd-cff6-4875-8585-41ba230c3ad4&ref=gig_price_range%3A0%2C150&source=expert_listings_page&is_experiential=true",
+};
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -24,6 +32,10 @@ export default function Home() {
       setEmail("");
       setTimeout(() => setSubscribed(false), 3000);
     }
+  };
+
+  const openFiverr = (link: string) => {
+    window.open(link, "_blank");
   };
 
   return (
@@ -64,13 +76,20 @@ export default function Home() {
                 Get Your <span className="gradient-text">Professional Logo</span> in 24 Hours
               </h1>
               <p className="text-lg text-muted-foreground max-w-lg">
-                Stop overpaying for branding. Get stunning, custom logo designs from expert designers starting at just $13. Fast turnaround, unlimited revisions, and full vector files included.
+                Stop overpaying for branding. Get stunning, custom logo designs from expert Fiverr designers starting at just $13. Fast turnaround, unlimited revisions, and full vector files included.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button className="btn-primary">
+                <Button 
+                  className="btn-primary"
+                  onClick={() => openFiverr(FIVERR_LINKS.budget)}
+                >
                   Get Your Logo Now <ChevronRight className="w-4 h-4 ml-2" />
                 </Button>
-                <Button variant="outline" className="border-border hover:bg-muted">
+                <Button 
+                  variant="outline" 
+                  className="border-border hover:bg-muted"
+                  onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
+                >
                   View Pricing
                 </Button>
               </div>
@@ -139,7 +158,12 @@ export default function Home() {
                     <span className="text-sm">Unlimited revisions</span>
                   </li>
                 </ul>
-                <Button className="w-full btn-primary">Get Started</Button>
+                <Button 
+                  className="w-full btn-primary"
+                  onClick={() => openFiverr(FIVERR_LINKS.budget)}
+                >
+                  Get Started on Fiverr
+                </Button>
               </div>
             </Card>
 
@@ -175,7 +199,12 @@ export default function Home() {
                     <span className="text-sm">Unlimited revisions</span>
                   </li>
                 </ul>
-                <Button className="w-full btn-primary">Get Started</Button>
+                <Button 
+                  className="w-full btn-primary"
+                  onClick={() => openFiverr(FIVERR_LINKS.premium)}
+                >
+                  Get Started on Fiverr
+                </Button>
               </div>
             </Card>
 
@@ -208,42 +237,20 @@ export default function Home() {
                     <span className="text-sm">1-on-1 VIP support</span>
                   </li>
                 </ul>
-                <Button className="w-full btn-secondary">Get Started</Button>
+                <Button 
+                  className="w-full btn-secondary"
+                  onClick={() => openFiverr(FIVERR_LINKS.vip)}
+                >
+                  Get Started on Fiverr
+                </Button>
               </div>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Platform Comparison Section */}
-      <section className="py-20 md:py-32 bg-card/50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Recommended Platforms</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              We work with the best platforms to bring you quality designers and reliable service
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { name: "Fiverr", desc: "Affordable, vetted designers", icon: "🎨" },
-              { name: "99designs", desc: "Premium design marketplace", icon: "✨" },
-              { name: "Looka", desc: "AI-powered logo generation", icon: "🤖" },
-              { name: "Tailor Brands", desc: "Quick & easy branding", icon: "⚡" },
-            ].map((platform, idx) => (
-              <Card key={idx} className="card-hover bg-background border-border p-6 text-center">
-                <div className="text-4xl mb-4">{platform.icon}</div>
-                <h3 className="text-lg font-bold mb-2">{platform.name}</h3>
-                <p className="text-sm text-muted-foreground">{platform.desc}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 md:py-32">
+      <section id="how-it-works" className="py-20 md:py-32 bg-card/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">How It Works</h2>
@@ -378,11 +385,14 @@ export default function Home() {
             </form>
 
             {subscribed && (
-              <p className="text-primary text-sm">✓ Check your email for the guide!</p>
+              <p className="text-primary text-sm">Check your email for the guide!</p>
             )}
 
             <div className="mt-12">
-              <Button className="btn-primary text-lg px-8 py-6">
+              <Button 
+                className="btn-primary text-lg px-8 py-6"
+                onClick={() => openFiverr(FIVERR_LINKS.premium)}
+              >
                 Start Your Logo Design Now <ChevronRight className="w-5 h-5 ml-2" />
               </Button>
             </div>
@@ -399,7 +409,7 @@ export default function Home() {
               Branding tips, design trends, and industry insights coming soon
             </p>
             <div className="inline-block px-6 py-3 bg-card border border-border rounded-lg text-muted-foreground">
-              📚 Blog section coming soon
+              Blog section coming soon
             </div>
           </div>
         </div>
@@ -408,7 +418,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-card border-t border-border py-12">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
@@ -419,7 +429,7 @@ export default function Home() {
               <p className="text-sm text-muted-foreground">Professional logo design services for your brand.</p>
             </div>
             <div>
-              <h4 className="font-bold mb-4">Quick Links</h4>
+              <h4 className="font-bold mb-4 text-sm">Quick Links</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li><a href="#pricing" className="hover:text-primary transition-colors">Pricing</a></li>
                 <li><a href="#how-it-works" className="hover:text-primary transition-colors">How It Works</a></li>
@@ -427,7 +437,7 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4">Resources</h4>
+              <h4 className="font-bold mb-4 text-sm">Resources</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li><a href="#" className="hover:text-primary transition-colors">Blog</a></li>
                 <li><a href="#" className="hover:text-primary transition-colors">Design Tips</a></li>
@@ -435,7 +445,15 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4">Follow Us</h4>
+              <h4 className="font-bold mb-4 text-sm">Guidelines</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><a href="#" className="hover:text-primary transition-colors">Brand Standards</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Design Process</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Support</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4 text-sm">Follow Us</h4>
               <div className="flex gap-4">
                 <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
                   <Facebook className="w-5 h-5" />
@@ -450,7 +468,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; 2024 Eonati. All rights reserved. | Affiliate partnerships with Fiverr, 99designs, Looka, and Tailor Brands</p>
+            <p>&copy; 2024 Eonati. All rights reserved. Powered by Fiverr affiliate partnerships.</p>
           </div>
         </div>
       </footer>
