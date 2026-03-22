@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Check, ChevronRight, Mail, Facebook, Linkedin, Twitter } from "lucide-react";
+import { Link } from "wouter";
 
 /**
  * Design Philosophy: Modern Minimalist with Sophisticated Depth
@@ -400,17 +401,42 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Blog/Resources Placeholder */}
+      {/* Blog/Resources Section */}
       <section className="py-16 md:py-24 bg-card/50">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Resources & Blog</h2>
             <p className="text-muted-foreground mb-8">
-              Branding tips, design trends, and industry insights coming soon
+              Branding tips, design trends, and industry insights to help your business grow.
             </p>
-            <div className="inline-block px-6 py-3 bg-card border border-border rounded-lg text-muted-foreground">
-              Blog section coming soon
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              <Card className="bg-card border-border p-6 text-left">
+                <h3 className="font-bold mb-2">Minimalist Real Estate Logos</h3>
+                <p className="text-sm text-muted-foreground mb-4">How to build a luxury brand on a budget.</p>
+                <Link href="/blog/minimalist-logo-for-real-estate-agents">
+                  <Button variant="link" className="p-0 h-auto text-primary">Read More <ChevronRight className="w-4 h-4 ml-1" /></Button>
+                </Link>
+              </Card>
+              <Card className="bg-card border-border p-6 text-left">
+                <h3 className="font-bold mb-2">Retro Coffee Shop Branding</h3>
+                <p className="text-sm text-muted-foreground mb-4">Give your brand a classic, artisanal feel.</p>
+                <Link href="/blog/retro-logo-for-coffee-shops-and-cafes">
+                  <Button variant="link" className="p-0 h-auto text-primary">Read More <ChevronRight className="w-4 h-4 ml-1" /></Button>
+                </Link>
+              </Card>
+              <Card className="bg-card border-border p-6 text-left">
+                <h3 className="font-bold mb-2">Hand-Drawn Artisanal Logos</h3>
+                <p className="text-sm text-muted-foreground mb-4">Perfect for handmade soap and Etsy shops.</p>
+                <Link href="/blog/hand-drawn-logo-for-handmade-soap-business">
+                  <Button variant="link" className="p-0 h-auto text-primary">Read More <ChevronRight className="w-4 h-4 ml-1" /></Button>
+                </Link>
+              </Card>
             </div>
+            <Link href="/blog">
+              <Button variant="outline" className="border-primary text-primary hover:bg-primary/10">
+                View All Articles
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -436,14 +462,14 @@ export default function Home() {
                 <li><a href="#cta" className="hover:text-primary transition-colors">Get Started</a></li>
               </ul>
             </div>
-            <div>
-              <h4 className="font-bold mb-4 text-sm">Resources</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Design Tips</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">FAQ</a></li>
-              </ul>
-            </div>
+<div>
+	              <h4 className="font-bold mb-4 text-sm">Resources</h4>
+	              <ul className="space-y-2 text-sm text-muted-foreground">
+	                <li><Link href="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
+	                <li><Link href="/blog" className="hover:text-primary transition-colors">Design Tips</Link></li>
+	                <li><Link href="/blog" className="hover:text-primary transition-colors">FAQ</Link></li>
+	              </ul>
+	            </div>
             <div>
               <h4 className="font-bold mb-4 text-sm">Guidelines</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
