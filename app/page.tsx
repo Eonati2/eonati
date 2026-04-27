@@ -274,13 +274,11 @@ export default function Home() {
               >
                 {/* Profile Image */}
                 <div className="flex items-center gap-4 mb-4">
-                  <img
-                    src={designer.image}
-                    alt={`Top-rated freelance logo designer ${designer.name} portfolio on Fiverr - ${designer.style} style specialist`}
-                    className="w-16 h-16 rounded-full object-cover border-2 border-eonati-primary/30"
-                    width={64}
-                    height={64}
-                  />
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-eonati-primary to-blue-600 flex items-center justify-center border-2 border-eonati-primary/30">
+                    <span className="text-2xl font-bold text-white">
+                      {designer.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                    </span>
+                  </div>
                   <div>
                     <h3 className="text-xl font-bold text-white">{designer.name}</h3>
                     <p className="text-gray-400 text-xs">{designer.style}</p>
