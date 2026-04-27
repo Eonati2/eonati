@@ -8,17 +8,23 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        fiverr: {
+          green: '#1DBF73',
+          greenHover: '#19A462',
+        },
+        slate: {
+          navy: '#2D3E50',
+          light: '#F7F7F7',
+        },
         eonati: {
-          bg: '#0B1020',
-          primary: '#2563EB',
-          accent: '#60A5FA',
-          light: '#F8FAFC',
-          dark: '#0F172A',
+          bg: '#FFFFFF',
+          alt: '#F7F7F7',
+          text: '#2D3E50',
         },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Manrope', 'system-ui', 'sans-serif'],
+        display: ['Inter', 'system-ui', 'sans-serif'],
       },
     },
   },
