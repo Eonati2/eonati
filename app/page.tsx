@@ -86,8 +86,18 @@ export default function Home() {
         </div>
       </section>
 
+      {/* AFFILIATE DISCLOSURE BANNER */}
+      <section className="py-4 px-4 bg-amber-500/10 border-b border-amber-500/20">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-amber-200 text-xs sm:text-sm">
+            <span className="font-semibold">⚠️ Affiliate Disclosure:</span> We may earn commissions from qualifying purchases at no extra cost to you. 
+            This supports our research and vetting process.
+          </p>
+        </div>
+      </section>
+
       {/* TRUST BAR */}
-      <section className="py-8 sm:py-12 border-y border-white/10 bg-white/5">
+      <section className="py-8 sm:py-12 border-b border-white/10 bg-white/5">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 sm:gap-8 text-center">
             <div>
@@ -110,6 +120,81 @@ export default function Home() {
               <div className="text-2xl sm:text-3xl font-bold text-white">100%</div>
               <div className="text-gray-400 text-xs sm:text-sm">Business Ready</div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section className="py-16 sm:py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl sm:text-4xl font-display font-bold text-white text-center mb-4"
+          >
+            How It Works
+          </motion.h2>
+          <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12 px-2">
+            Get a professional logo in 4 simple steps
+          </p>
+          
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-center"
+            >
+              <div className="w-16 h-16 bg-eonati-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-white">1</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Choose Your Designer</h3>
+              <p className="text-gray-400 text-sm">Browse our vetted Fiverr Pro talent and find the perfect match for your brand</p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-center"
+            >
+              <div className="w-16 h-16 bg-eonati-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-white">2</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Select a Package</h3>
+              <p className="text-gray-400 text-sm">From €23 startup logos to €400+ full branding packages</p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="text-center"
+            >
+              <div className="w-16 h-16 bg-eonati-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-white">3</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Get Your Logo</h3>
+              <p className="text-gray-400 text-sm">Receive professional designs in 24-72 hours with unlimited revisions</p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="text-center"
+            >
+              <div className="w-16 h-16 bg-eonati-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-white">4</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Launch Your Brand</h3>
+              <p className="text-gray-400 text-sm">Full commercial rights included - ready to use everywhere</p>
+            </motion.div>
           </div>
         </div>
       </section>
