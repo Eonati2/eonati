@@ -1,46 +1,102 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 
 export default function Navbar() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  const navLinks = [
+    { href: '/designers', label: 'Designers' },
+    { href: '/startup', label: 'Startup' },
+    { href: '/luxury', label: 'Luxury' },
+    { href: '/blog', label: 'Blog' },
+    { href: '/compare', label: 'Compare' },
+    { href: '/faq', label: 'FAQ' },
+  ]
+
   return (
-    <nav className="fixed top-0 w-full z-50 bg-eonati-bg/80 backdrop-blur-md border-b border-white/10">
+    <nav className="fixed top-0 w-full z-50 bg-eonati-bg/95 backdrop-blur-md border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="text-2xl font-display font-bold text-white">
+          {/* Logo */}
+          <Link href="/" className="text-2xl font-display font-bold text-white hover:text-eonati-primary transition">
             Eonati
           </Link>
           
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/designers" className="text-gray-300 hover:text-white transition">
-              Designers
-            </Link>
-            <Link href="/startup" className="text-gray-300 hover:text-white transition">
-              Startup
-            </Link>
-            <Link href="/luxury" className="text-gray-300 hover:text-white transition">
-              Luxury
-            </Link>
-            <Link href="/blog" className="text-gray-300 hover:text-white transition">
-              Blog
-            </Link>
-            <Link href="/compare" className="text-gray-300 hover:text-white transition">
-              Compare
-            </Link>
-            <Link href="/faq" className="text-gray-300 hover:text-white transition">
-              FAQ
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-6">
+            {navLinks.map((link) => (
+              <Link 
+                key={link.href} 
+                href={link.href} 
+                className="text-gray-300 hover:text-white transition text-sm font-medium"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Desktop CTA */}
+          <div className="hidden md:block">
+            <Link
+              href="https://go.fiverr.com/visit/?bta=1139651&brand=fp&landingPage=https%253A%252F%252Fpro.fiverr.com%252Fagencies%252Falestra"
+              className="bg-eonati-primary hover:bg-blue-600 text-white px-5 py-2.5 rounded-lg font-medium transition text-sm"
+            >
+              Find Your Designer
             </Link>
           </div>
 
-          <Link
-            href="https://go.fiverr.com/visit/?bta=1139651&brand=fp&landingPage=https%253A%252F%252Fpro.fiverr.com%252Fagencies%252Falestra"
-            className="bg-eonati-primary hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition"
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 text-gray-300 hover:text-white"
+            aria-label="Toggle menu"
           >
-            Find Your Designer
-          </Link>
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="lg:hidden border-t border-white/10 bg-eonati-bg"
+          >
+            <div className="px-4 py-4 space-y-3">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-2 text-gray-300 hover:text-white hover:bg-white/5 px-3 rounded-lg transition"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <Link
+                href="https://go.fiverr.com/visit/?bta=1139651&brand=fp&landingPage=https%253A%252F%252Fpro.fiverr.com%252Fagencies%252Falestra"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block w-full bg-eonati-primary hover:bg-blue-600 text-white text-center py-3 rounded-lg font-medium transition mt-4"
+              >
+                Find Your Designer
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   )
 }

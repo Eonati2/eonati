@@ -43,13 +43,13 @@ export default function Home() {
       <Navbar />
       
       {/* HERO SECTION */}
-      <section className="pt-32 pb-20 px-4">
+      <section className="pt-24 pb-16 px-4 sm:pt-32 sm:pb-20">
         <div className="max-w-7xl mx-auto text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-5xl md:text-7xl font-display font-bold text-white mb-6"
+            className="text-4xl sm:text-5xl md:text-7xl font-display font-bold text-white mb-4 sm:mb-6"
           >
             Your Logo Might Be{' '}
             <span className="text-eonati-primary">Losing Customers</span>
@@ -59,7 +59,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-gray-300 max-w-3xl mx-auto mb-10"
+            className="text-base sm:text-xl text-gray-300 max-w-3xl mx-auto mb-8 sm:mb-10 px-2"
           >
             Discover vetted Fiverr Pro designers trusted by thousands to build brands people trust instantly.
           </motion.p>
@@ -68,17 +68,17 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-2"
           >
             <a
               href="#designers"
-              className="bg-eonati-primary hover:bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition"
+              className="bg-eonati-primary hover:bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg transition w-full sm:w-auto"
             >
               View Top Designers
             </a>
             <a
               href="/blog"
-              className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-lg font-semibold text-lg transition"
+              className="bg-white/10 hover:bg-white/20 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg transition w-full sm:w-auto"
             >
               See Logo Transformations
             </a>
@@ -87,49 +87,49 @@ export default function Home() {
       </section>
 
       {/* TRUST BAR */}
-      <section className="py-12 border-y border-white/10 bg-white/5">
+      <section className="py-8 sm:py-12 border-y border-white/10 bg-white/5">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 sm:gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-white">30k+</div>
-              <div className="text-gray-400 text-sm">Reviews</div>
+              <div className="text-2xl sm:text-3xl font-bold text-white">30k+</div>
+              <div className="text-gray-400 text-xs sm:text-sm">Reviews</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-white">4.9★</div>
-              <div className="text-gray-400 text-sm">Top Rated</div>
+              <div className="text-2xl sm:text-3xl font-bold text-white">4.9★</div>
+              <div className="text-gray-400 text-xs sm:text-sm">Top Rated</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-white">Pro</div>
-              <div className="text-gray-400 text-sm">Fiverr Vetted</div>
+              <div className="text-2xl sm:text-3xl font-bold text-white">Pro</div>
+              <div className="text-gray-400 text-xs sm:text-sm">Fiverr Vetted</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-white">24hr</div>
-              <div className="text-gray-400 text-sm">Fast Delivery</div>
+              <div className="text-2xl sm:text-3xl font-bold text-white">24hr</div>
+              <div className="text-gray-400 text-xs sm:text-sm">Fast Delivery</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-white">100%</div>
-              <div className="text-gray-400 text-sm">Business Ready</div>
+              <div className="text-2xl sm:text-3xl font-bold text-white">100%</div>
+              <div className="text-gray-400 text-xs sm:text-sm">Business Ready</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* FEATURED DESIGNERS */}
-      <section id="designers" className="py-20 px-4">
+      <section id="designers" className="py-16 sm:py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl font-display font-bold text-white text-center mb-4"
+            className="text-3xl sm:text-4xl font-display font-bold text-white text-center mb-4"
           >
             Featured Designers
           </motion.h2>
-          <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12">
+          <p className="text-gray-400 text-center max-w-2xl mx-auto mb-10 sm:mb-12 px-2">
             Hand-picked Fiverr Pro talent with proven track records
           </p>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {designers.map((designer, index) => (
               <motion.div
                 key={designer.name}
@@ -137,27 +137,27 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-eonati-primary/50 transition"
+                className="bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-6 hover:border-eonati-primary/50 transition"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <span className="bg-eonati-primary/20 text-eonati-primary px-3 py-1 rounded-full text-sm font-medium">
+                  <span className="bg-eonati-primary/20 text-eonati-primary px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
                     {designer.badge}
                   </span>
                   <div className="flex items-center gap-1">
                     <span className="text-yellow-400">★</span>
                     <span className="text-white font-semibold">{designer.rating}</span>
-                    <span className="text-gray-400 text-sm">({designer.reviews})</span>
+                    <span className="text-gray-400 text-xs sm:text-sm">({designer.reviews})</span>
                   </div>
                 </div>
                 
-                <h3 className="text-2xl font-bold text-white mb-2">{designer.name}</h3>
-                <p className="text-gray-400 text-sm mb-4">{designer.tagline}</p>
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">{designer.name}</h3>
+                <p className="text-gray-400 text-xs sm:text-sm mb-4">{designer.tagline}</p>
                 
-                <div className="text-3xl font-bold text-white mb-6">{designer.price}</div>
+                <div className="text-2xl sm:text-3xl font-bold text-white mb-6">{designer.price}</div>
                 
                 <ul className="space-y-2 mb-6">
                   {designer.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-gray-300 text-sm">
+                    <li key={feature} className="flex items-center gap-2 text-gray-300 text-xs sm:text-sm">
                       <span className="text-eonati-primary">✓</span>
                       {feature}
                     </li>
@@ -168,7 +168,7 @@ export default function Home() {
                   href={designer.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full bg-eonati-primary hover:bg-blue-600 text-white text-center py-3 rounded-lg font-semibold transition"
+                  className="block w-full bg-eonati-primary hover:bg-blue-600 text-white text-center py-3 rounded-lg font-semibold transition text-sm sm:text-base"
                 >
                   Hire {designer.name.split(' ')[0]}
                 </a>
@@ -179,39 +179,39 @@ export default function Home() {
       </section>
 
       {/* WHY GOOD LOGOS WIN */}
-      <section className="py-20 px-4 bg-white/5">
+      <section className="py-16 sm:py-20 px-4 bg-white/5">
         <div className="max-w-7xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl font-display font-bold text-white text-center mb-4"
+            className="text-3xl sm:text-4xl font-display font-bold text-white text-center mb-4"
           >
             Why Good Logos Win
           </motion.h2>
-          <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12">
+          <p className="text-gray-400 text-center max-w-2xl mx-auto mb-10 sm:mb-12 px-2">
             Customers judge your business in seconds. Make it count.
           </p>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <div className="text-center">
-              <div className="text-5xl mb-4">⚡</div>
-              <h3 className="text-xl font-bold text-white mb-2">First Impressions</h3>
-              <p className="text-gray-400">
+              <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">⚡</div>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2">First Impressions</h3>
+              <p className="text-gray-400 text-sm sm:text-base">
                 75% of consumers judge a company's credibility based on visual design alone.
               </p>
             </div>
             <div className="text-center">
-              <div className="text-5xl mb-4">💰</div>
-              <h3 className="text-xl font-bold text-white mb-2">Higher Conversions</h3>
-              <p className="text-gray-400">
+              <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">💰</div>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Higher Conversions</h3>
+              <p className="text-gray-400 text-sm sm:text-base">
                 Professional branding can increase conversion rates by up to 33%.
               </p>
             </div>
             <div className="text-center">
-              <div className="text-5xl mb-4">🎯</div>
-              <h3 className="text-xl font-bold text-white mb-2">Stand Out</h3>
-              <p className="text-gray-400">
+              <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">🎯</div>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Stand Out</h3>
+              <p className="text-gray-400 text-sm sm:text-base">
                 Unique logos are 3x more likely to be remembered by potential customers.
               </p>
             </div>
@@ -220,24 +220,24 @@ export default function Home() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-20 px-4">
+      <section className="py-16 sm:py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl font-display font-bold text-white mb-6"
+            className="text-3xl sm:text-4xl font-display font-bold text-white mb-4 sm:mb-6"
           >
             Ready to Build a Brand People Trust?
           </motion.h2>
-          <p className="text-xl text-gray-300 mb-10">
+          <p className="text-base sm:text-xl text-gray-300 mb-8 sm:mb-10 px-2">
             Start with a professional logo from vetted Fiverr Pro designers.
           </p>
           <a
             href="https://go.fiverr.com/visit/?bta=1139651&brand=fp&landingPage=https%253A%252F%252Fpro.fiverr.com%252Fagencies%252Falestra"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-eonati-primary hover:bg-blue-600 text-white px-10 py-4 rounded-lg font-semibold text-lg transition"
+            className="inline-block bg-eonati-primary hover:bg-blue-600 text-white px-8 sm:px-10 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg transition w-full sm:w-auto"
           >
             Find Your Designer Now
           </a>
