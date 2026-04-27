@@ -14,7 +14,23 @@ export default function Home() {
       price: 'From $200',
       badge: 'Top Rated',
       link: 'https://go.fiverr.com/visit/?bta=1139651&brand=fp&landingPage=https%253A%252F%252Fpro.fiverr.com%252Fagencies%252Falestra',
+      image: 'https://fiverr-res.cloudinary.com/t_profile_original,q_auto,f_auto/attachments/profile/photo/5e3b5e5e5e5e5e5e5e5e5e5e/alestra-profile.jpg',
+      style: 'Full-Service Agency',
       features: ['Visual Identity', 'Logo Design', 'Brand Guides', 'Logo Animation'],
+      tiers: {
+        starter: {
+          name: 'Starter Tier',
+          delivery: '3-5 Days',
+          revisions: '2 Included',
+          files: 'PNG/JPG',
+        },
+        pro: {
+          name: 'Pro Tier',
+          delivery: '24-48 Hours',
+          revisions: 'Unlimited',
+          files: 'AI/EPS (Vector)',
+        },
+      },
     },
     {
       name: 'Juhi / Explorance',
@@ -24,7 +40,23 @@ export default function Home() {
       price: 'From €23',
       badge: 'Fiverr Pro',
       link: 'https://pro.fiverr.com/freelancers/explorance?utm_source=1139651&utm_medium=cx_affiliate&utm_campaign=_bus-y&afp=&cxd_token=1139651_44793043&show_join=true&ref_ctx_id=c86858ecc5314ce6838c8f86cbacafa1&expertises=type%3Aleaf_cat_id%2Cid%3A49%2CparentId%3A49%7Ctype%3Askill%2Cid%3A617fa6650565f0778900660f%2CparentId%3Anull%7Ctype%3Askill%2Cid%3A617fa6510565f0778900601a%2CparentId%3Anull%7Ctype%3Askill%2Cid%3A617fa6650565f077890065e7%2CparentId%3Anull&gigs=id%3A454378697%2Cpckg_id%3A1%7Cid%3A307424447%2Cpckg_id%3A1%7Cid%3A194009784%2Cpckg_id%3A1&imp_id=e3c035bd-cff6-4875-8585-41ba230c3ad4&ref=gig_price_range%3A0%2C150&source=expert_listings_page&is_experiential=true',
+      image: 'https://fiverr-res.cloudinary.com/t_profile_original,q_auto,f_auto/attachments/profile/photo/juhi-profile.jpg',
+      style: 'Minimalist',
       features: ['Minimalist Logos', '24hr Delivery', 'Brand Identity', 'Startup Packages'],
+      tiers: {
+        starter: {
+          name: 'Starter Tier',
+          delivery: '2-3 Days',
+          revisions: '2 Included',
+          files: 'PNG/JPG',
+        },
+        pro: {
+          name: 'Pro Tier',
+          delivery: '24 Hours',
+          revisions: 'Unlimited',
+          files: 'AI/EPS (Vector)',
+        },
+      },
     },
     {
       name: 'Valeriia T',
@@ -34,7 +66,23 @@ export default function Home() {
       price: 'From €175',
       badge: 'Fiverr Pro',
       link: 'https://pro.fiverr.com/freelancers/valeriiaty?ref_ctx_id=2eb6e0b48e78498a81c78fd6468c0401&expertises=type%3Aleaf_cat_id%2Cid%3A49%2CparentId%3A49%7Ctype%3Askill%2Cid%3A617fa6620565f07789006535%2CparentId%3Anull%7Ctype%3Askill%2Cid%3A617fa63d0565f07789005a5e%2CparentId%3Anull%7Ctype%3Askill%2Cid%3A617fa6680565f077890066d9%2CparentId%3Anull&gigs=id%3A162059693%2Cpckg_id%3A1%7Cid%3A288950630%2Cpckg_id%3A1%7Cid%3A229132321%2Cpckg_id%3A1&imp_id=18cc32d1-9ab6-4b0b-bec9-a08f09fefe29&source=expert_listings_page&is_experiential=true',
+      image: 'https://fiverr-res.cloudinary.com/t_profile_original,q_auto,f_auto/attachments/profile/photo/valeriia-profile.jpg',
+      style: 'Luxury & Feminine',
       features: ['Luxury Branding', 'Packaging Design', 'Website UI/UX', '10+ Years Exp'],
+      tiers: {
+        starter: {
+          name: 'Starter Tier',
+          delivery: '5-7 Days',
+          revisions: '3 Included',
+          files: 'PNG/JPG',
+        },
+        pro: {
+          name: 'Pro Tier',
+          delivery: '3-5 Days',
+          revisions: 'Unlimited',
+          files: 'AI/EPS (Vector)',
+        },
+      },
     },
   ]
 
@@ -51,8 +99,8 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-4xl sm:text-5xl md:text-7xl font-display font-bold text-white mb-4 sm:mb-6"
           >
-            Your Logo Might Be{' '}
-            <span className="text-eonati-primary">Losing Customers</span>
+            Get a Professional Brand Identity{' '}
+            <span className="text-eonati-primary">Without the Agency Price Tag</span>
           </motion.h1>
           
           <motion.p
@@ -74,13 +122,13 @@ export default function Home() {
               href="#designers"
               className="bg-eonati-primary hover:bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg transition w-full sm:w-auto"
             >
-              View Top Designers
+              Browse Designers
             </a>
             <a
-              href="/blog"
+              href="#how-it-works"
               className="bg-white/10 hover:bg-white/20 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg transition w-full sm:w-auto"
             >
-              See Logo Transformations
+              How it Works
             </a>
           </motion.div>
         </div>
@@ -125,7 +173,7 @@ export default function Home() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="py-16 sm:py-20 px-4">
+      <section id="how-it-works" className="py-16 sm:py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -133,7 +181,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-3xl sm:text-4xl font-display font-bold text-white text-center mb-4"
           >
-            How It Works
+            How It Works: Hire a Freelance Logo Designer in Minutes
           </motion.h2>
           <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12 px-2">
             Get a professional logo in 4 simple steps
@@ -150,8 +198,8 @@ export default function Home() {
               <div className="w-16 h-16 bg-eonati-primary rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold text-white">1</span>
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">Choose Your Designer</h3>
-              <p className="text-gray-400 text-sm">Browse our vetted Fiverr Pro talent and find the perfect match for your brand</p>
+              <h3 className="text-lg font-bold text-white mb-2">Select a Category</h3>
+              <p className="text-gray-400 text-sm">Find the style that fits your brand</p>
             </motion.div>
             
             <motion.div
@@ -164,8 +212,8 @@ export default function Home() {
               <div className="w-16 h-16 bg-eonati-primary rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold text-white">2</span>
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">Select a Package</h3>
-              <p className="text-gray-400 text-sm">From €23 startup logos to €400+ full branding packages</p>
+              <h3 className="text-lg font-bold text-white mb-2">Compare Portfolio</h3>
+              <p className="text-gray-400 text-sm">Look at real work samples</p>
             </motion.div>
             
             <motion.div
@@ -178,8 +226,8 @@ export default function Home() {
               <div className="w-16 h-16 bg-eonati-primary rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold text-white">3</span>
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">Get Your Logo</h3>
-              <p className="text-gray-400 text-sm">Receive professional designs in 24-72 hours with unlimited revisions</p>
+              <h3 className="text-lg font-bold text-white mb-2">Check Pricing</h3>
+              <p className="text-gray-400 text-sm">Review transparent bulleted pricing tiers</p>
             </motion.div>
             
             <motion.div
@@ -192,8 +240,8 @@ export default function Home() {
               <div className="w-16 h-16 bg-eonati-primary rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl font-bold text-white">4</span>
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">Launch Your Brand</h3>
-              <p className="text-gray-400 text-sm">Full commercial rights included - ready to use everywhere</p>
+              <h3 className="text-lg font-bold text-white mb-2">Get Your Logo</h3>
+              <p className="text-gray-400 text-sm">Final files delivered in days</p>
             </motion.div>
           </div>
         </div>
@@ -214,7 +262,7 @@ export default function Home() {
             Hand-picked Fiverr Pro talent with proven track records
           </p>
           
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {designers.map((designer, index) => (
               <motion.div
                 key={designer.name}
@@ -224,6 +272,22 @@ export default function Home() {
                 transition={{ delay: index * 0.1 }}
                 className="bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-6 hover:border-eonati-primary/50 transition"
               >
+                {/* Profile Image */}
+                <div className="flex items-center gap-4 mb-4">
+                  <img
+                    src={designer.image}
+                    alt={`Top-rated freelance logo designer ${designer.name} portfolio on Fiverr - ${designer.style} style specialist`}
+                    className="w-16 h-16 rounded-full object-cover border-2 border-eonati-primary/30"
+                    width={64}
+                    height={64}
+                  />
+                  <div>
+                    <h3 className="text-xl font-bold text-white">{designer.name}</h3>
+                    <p className="text-gray-400 text-xs">{designer.style}</p>
+                  </div>
+                </div>
+
+                {/* Badge & Rating */}
                 <div className="flex items-center justify-between mb-4">
                   <span className="bg-eonati-primary/20 text-eonati-primary px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
                     {designer.badge}
@@ -235,10 +299,29 @@ export default function Home() {
                   </div>
                 </div>
                 
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">{designer.name}</h3>
                 <p className="text-gray-400 text-xs sm:text-sm mb-4">{designer.tagline}</p>
                 
                 <div className="text-2xl sm:text-3xl font-bold text-white mb-6">{designer.price}</div>
+                
+                {/* Pricing Tiers */}
+                <div className="grid grid-cols-2 gap-3 mb-6">
+                  <div className="bg-white/5 rounded-lg p-3">
+                    <div className="text-xs font-semibold text-gray-300 mb-2">{designer.tiers.starter.name}</div>
+                    <div className="text-xs text-gray-400 space-y-1">
+                      <div>⏱ {designer.tiers.starter.delivery}</div>
+                      <div>🔄 {designer.tiers.starter.revisions}</div>
+                      <div>📁 {designer.tiers.starter.files}</div>
+                    </div>
+                  </div>
+                  <div className="bg-eonati-primary/10 border border-eonati-primary/30 rounded-lg p-3">
+                    <div className="text-xs font-semibold text-eonati-primary mb-2">{designer.tiers.pro.name}</div>
+                    <div className="text-xs text-gray-300 space-y-1">
+                      <div>⏱ {designer.tiers.pro.delivery}</div>
+                      <div>🔄 {designer.tiers.pro.revisions}</div>
+                      <div>📁 {designer.tiers.pro.files}</div>
+                    </div>
+                  </div>
+                </div>
                 
                 <ul className="space-y-2 mb-6">
                   {designer.features.map((feature) => (
@@ -272,7 +355,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-3xl sm:text-4xl font-display font-bold text-white text-center mb-4"
           >
-            Why Good Logos Win
+            The Impact of a Custom Logo Design on Your Bottom Line
           </motion.h2>
           <p className="text-gray-400 text-center max-w-2xl mx-auto mb-10 sm:mb-12 px-2">
             Customers judge your business in seconds. Make it count.
@@ -281,31 +364,31 @@ export default function Home() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <div className="text-center">
               <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">⚡</div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2">First Impressions</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Instant Credibility</h3>
               <p className="text-gray-400 text-sm sm:text-base">
-                75% of consumers judge a company's credibility based on visual design alone.
+                <strong>Professional designs build trust with new customers.</strong> 75% of consumers judge a company's credibility based on visual design alone.
               </p>
             </div>
             <div className="text-center">
               <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">💰</div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Higher Conversions</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Memorability</h3>
               <p className="text-gray-400 text-sm sm:text-base">
-                Professional branding can increase conversion rates by up to 33%.
+                <strong>Stand out in a crowded social media feed.</strong> Unique logos are 3x more likely to be remembered by potential customers.
               </p>
             </div>
             <div className="text-center">
               <div className="text-4xl sm:text-5xl mb-3 sm:mb-4">🎯</div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Stand Out</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Scalability</h3>
               <p className="text-gray-400 text-sm sm:text-base">
-                Unique logos are 3x more likely to be remembered by potential customers.
+                <strong>High-quality files work on everything from business cards to billboards.</strong> Vector formats ensure your logo looks perfect at any size.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FINAL CTA */}
-      <section className="py-16 sm:py-20 px-4">
+      {/* FINAL STICKY CTA */}
+      <section className="py-16 sm:py-20 px-4 sticky bottom-0 bg-eonati-bg/95 backdrop-blur-md border-t border-white/10">
         <div className="max-w-4xl mx-auto text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -322,9 +405,9 @@ export default function Home() {
             href="https://go.fiverr.com/visit/?bta=1139651&brand=fp&landingPage=https%253A%252F%252Fpro.fiverr.com%252Fagencies%252Falestra"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-eonati-primary hover:bg-blue-600 text-white px-8 sm:px-10 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg transition w-full sm:w-auto"
+            className="inline-block bg-eonati-primary hover:bg-blue-600 text-white px-8 sm:px-10 py-4 sm:py-5 rounded-lg font-semibold text-lg sm:text-xl transition w-full sm:w-auto shadow-lg shadow-blue-500/30"
           >
-            Find Your Designer Now
+            Find Your Designer Now →
           </a>
         </div>
       </section>
