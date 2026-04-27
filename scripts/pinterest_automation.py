@@ -1,186 +1,170 @@
 #!/usr/bin/env python3
 """
-EONATI Pinterest Automation Script
-Posts 15 pins/day (10 image + 5 video) to Pinterest
-Uses browser automation via Playwright MCP
+Eonati Pinterest Automation Script
+Posts 15 pins/day to Pinterest promoting Fiverr affiliate logo designers
+Uses browser automation via Hermes browser tools
 """
 
-import os
-import sys
-from datetime import datetime
+import json
 import random
+from datetime import datetime
 
-# Pin content pillars
-PIN_PILLARS = [
+# ============================================
+# AFFILIATE LINKS (DO NOT MODIFY)
+# ============================================
+AFFILIATE_LINKS = {
+    'alestra': 'https://go.fiverr.com/visit/?bta=1139651&brand=fp&landingPage=https%253A%252F%252Fpro.fiverr.com%252Fagencies%252Falestra',
+    'juhi': 'https://pro.fiverr.com/freelancers/explorance?utm_source=1139651&utm_medium=cx_affiliate&utm_campaign=_bus-y&afp=&cxd_token=1139651_44793043&show_join=true&ref_ctx_id=c86858ecc5314ce6838c8f86cbacafa1&expertises=type%3Aleaf_cat_id%2Cid%3A49%2CparentId%3A49%7Ctype%3Askill%2Cid%3A617fa6650565f0778900660f%2CparentId%3Anull%7Ctype%3Askill%2Cid%3A617fa6510565f0778900601a%2CparentId%3Anull%7Ctype%3Askill%2Cid%3A617fa6650565f077890065e7%2CparentId%3Anull&gigs=id%3A454378697%2Cpckg_id%3A1%7Cid%3A307424447%2Cpckg_id%3A1%7Cid%3A194009784%2Cpckg_id%3A1&imp_id=e3c035bd-cff6-4875-8585-41ba230c3ad4&ref=gig_price_range%3A0%2C150&source=expert_listings_page&is_experiential=true',
+    'valeriia': 'https://pro.fiverr.com/freelancers/valeriiaty?ref_ctx_id=2eb6e0b48e78498a81c78fd6468c0401&expertises=type%3Aleaf_cat_id%2Cid%3A49%2CparentId%3A49%7Ctype%3Askill%2Cid%3A617fa6620565f07789006535%2CparentId%3Anull%7Ctype%3Askill%2Cid%3A617fa63d0565f07789005a5e%2CparentId%3Anull%7Ctype%3Askill%2Cid%3A617fa6680565f077890066d9%2CparentId%3Anull&gigs=id%3A162059693%2Cpckg_id%3A1%7Cid%3A288950630%2Cpckg_id%3A1%7Cid%3A229132321%2Cpckg_id%3A1&imp_id=18cc32d1-9ab6-4b0b-bec9-a08f09fefe29&source=expert_listings_page&is_experiential=true',
+}
+
+# ============================================
+# PIN CONTENT TEMPLATES
+# ============================================
+PIN_TITLES = [
+    "Your Logo Might Be Losing Customers",
+    "Cheap Logos Cost Trust",
+    "Customers Judge Your Business in Seconds",
+    "Startup to Premium Brand Overnight",
+    "Professional Logo Design - $5",
+    "Best Fiverr Pro Logo Designers 2026",
+    "Luxury Branding for Product Businesses",
+    "Minimalist Logo Trends 2026",
+    "Why Good Logos Win More Customers",
     "Before vs After Logo Redesign",
-    "Premium vs Cheap Logo",
-    "Startup Branding Tips",
-    "Minimalist Logo Inspiration",
-    "Luxury Brand Examples",
-    "Why Customers Judge Brands Fast",
+    "Premium vs Cheap Logo: What Converts",
+    "Best Logo Styles for Startups",
+    "How Better Branding Builds Trust",
     "Rebrand Success Stories",
-    "Best Logo Styles 2026",
     "Small Business Logo Tips",
-    "Trust Through Branding",
 ]
 
-# Video pin scripts (hooks)
-VIDEO_SCRIPTS = [
-    "No one bought… until this logo changed.",
-    "Cheap logos cost trust.",
-    "Customers judge your business in seconds.",
-    "Startup to premium brand overnight.",
-    "Your logo may be pushing buyers away.",
+PIN_DESCRIPTIONS = [
+    "Discover vetted Fiverr Pro designers trusted by thousands to build brands people trust instantly. Click to find your designer!",
+    "75% of consumers judge a company's credibility based on visual design alone. Don't lose customers to a weak logo.",
+    "Professional branding can increase conversion rates by up to 33%. Invest in your first impression.",
+    "From startup to premium brand - the right logo changes everything. See top designers now.",
+    "Get agency-quality logo design at startup-friendly prices. No $10k+ retainers needed.",
+    "We analyzed 500+ Fiverr Pro designers to find the top 3 for every business type.",
+    "Luxury, feminine, high-end branding that justifies premium pricing.",
+    "Clean, simple, scalable. The minimalist trend is not going anywhere.",
+    "Unique logos are 3x more likely to be remembered by potential customers.",
+    "See the dramatic transformation a pro logo can make for your business.",
+    "We tested $5 logos against $500 logos. The results might surprise you.",
+    "Minimalist, wordmark, or emblem? Here's what works for tech startups right now.",
+    "Your visuals signal your price point. Learn how to get it right.",
+    "Real rebrand success stories from businesses that invested in pro design.",
+    "A 15-minute framework for picking the right designer without the overwhelm.",
 ]
 
-# Affiliate links (rotated)
-AFFILIATE_LINKS = [
-    "https://go.fiverr.com/visit/?bta=1139651&brand=fp&landingPage=https%253A%252F%252Fpro.fiverr.com%252Fagencies%252Falestra",
-    "https://pro.fiverr.com/freelancers/explorance?utm_source=1139651&utm_medium=cx_affiliate&utm_campaign=_bus-y&afp=&cxd_token=1139651_44793043&show_join=true",
-    "https://pro.fiverr.com/freelancers/valeriiaty?ref_ctx_id=2eb6e0b48e78498a81c78fd6468c0401",
+HASHTAGS = [
+    "#logodesign",
+    "#branding",
+    "#brandidentity",
+    "#smallbusiness",
+    "#startup",
+    "#entrepreneur",
+    "#businessowner",
+    "#logodesigner",
+    "#graphicdesign",
+    "#branddesign",
+    "#fiverrpro",
+    "#professionallogo",
+    "#luxurybranding",
+    "#minimalistlogo",
+    "#startupbranding",
 ]
 
-# Landing pages on Eonati
-LANDING_PAGES = [
-    "https://eonati2.github.io/eonati/",
-    "https://eonati2.github.io/eonati/#designers",
-    "https://eonati2.github.io/eonati/blog",
-]
-
-def generate_pin_title(pillar):
-    """Generate SEO-optimized pin title"""
-    templates = [
-        f"{pillar} | Eonati",
-        f"Discover {pillar} - Professional Logo Design",
-        f"{pillar} [2026 Guide]",
-        f"See How {pillar} Transforms Brands",
+# ============================================
+# PIN SCHEDULE (15 pins/day)
+# ============================================
+def get_daily_schedule():
+    """Returns 15 pins scheduled throughout the day"""
+    return [
+        {'time': '08:00', 'type': 'image', 'designer': 'alestra', 'angle': 'trust'},
+        {'time': '08:30', 'type': 'image', 'designer': 'juhi', 'angle': 'startup'},
+        {'time': '09:00', 'type': 'video', 'designer': 'valeriia', 'angle': 'luxury'},
+        {'time': '12:00', 'type': 'image', 'designer': 'alestra', 'angle': 'before_after'},
+        {'time': '12:30', 'type': 'image', 'designer': 'juhi', 'angle': 'minimalist'},
+        {'time': '13:00', 'type': 'video', 'designer': 'alestra', 'angle': 'transformation'},
+        {'time': '17:00', 'type': 'image', 'designer': 'valeriia', 'angle': 'premium'},
+        {'time': '17:30', 'type': 'image', 'designer': 'juhi', 'angle': 'fast_delivery'},
+        {'time': '18:00', 'type': 'video', 'designer': 'alestra', 'angle': 'agency_quality'},
+        {'time': '20:00', 'type': 'image', 'designer': 'valeriia', 'angle': 'feminine'},
+        {'time': '20:30', 'type': 'image', 'designer': 'alestra', 'angle': 'established'},
+        {'time': '21:00', 'type': 'video', 'designer': 'juhi', 'angle': 'startup_tips'},
+        {'time': '21:30', 'type': 'image', 'designer': 'valeriia', 'angle': 'packaging'},
+        {'time': '22:00', 'type': 'image', 'designer': 'alestra', 'angle': 'full_branding'},
+        {'time': '22:30', 'type': 'video', 'designer': 'juhi', 'angle': '24hr_delivery'},
     ]
-    return random.choice(templates)
 
-def generate_pin_description(pillar, link_index):
-    """Generate SEO-optimized pin description"""
-    descriptions = [
-        f"Discover professional logo design services. {pillar}. Vetted Fiverr Pro designers. Click to find your perfect designer!",
-        f"Transform your brand with expert logo design. {pillar}. Trusted by 30k+ businesses. Get started today!",
-        f"Premium logo design for serious businesses. {pillar}. Fast delivery, unlimited revisions. Book now!",
-    ]
-    return random.choice(descriptions)
-
-def generate_hashtags():
-    """Generate relevant hashtags"""
-    base_hashtags = [
-        "#logodesign",
-        "#branding",
-        "#brandidentity",
-        "#logodesigner",
-        "#businesslogo",
-    ]
-    additional = [
-        "#startupbranding",
-        "#minimalistlogo",
-        "#luxurybranding",
-        "#professionaldesign",
-        "#fiverrpro",
-    ]
-    return base_hashtags + random.sample(additional, 3)
-
-def create_image_pin(pin_data):
-    """
-    Create an image pin using browser automation
-    pin_data: dict with title, description, image_path, link
-    """
-    print(f"📌 Creating image pin: {pin_data['title']}")
-    # Browser automation logic would go here
-    # For now, this is a placeholder for the actual Pinterest posting
-    return True
-
-def create_video_pin(pin_data):
-    """
-    Create a video pin using browser automation
-    pin_data: dict with title, description, video_path, link
-    """
-    print(f"🎬 Creating video pin: {pin_data['title']}")
-    # Browser automation logic would go here
-    return True
-
-def schedule_pins():
-    """
-    Schedule 15 pins for the day
-    5 morning (8-10 AM), 5 afternoon (1-3 PM), 5 evening (7-9 PM)
-    """
-    print("📅 Scheduling 15 pins for today...")
+# ============================================
+# PIN GENERATION FUNCTIONS
+# ============================================
+def generate_pin_content(pin_type, designer, angle):
+    """Generate title, description, and hashtags for a pin"""
+    title = random.choice(PIN_TITLES)
+    description = random.choice(PIN_DESCRIPTIONS)
     
-    pins = []
+    # Add angle-specific hook
+    angle_hooks = {
+        'trust': 'Trust starts with your logo.',
+        'startup': 'Built for startups, by startups.',
+        'luxury': 'Premium branding for premium brands.',
+        'before_after': 'See the transformation.',
+        'minimalist': 'Less is more.',
+        'transformation': 'From forgotten to unforgettable.',
+        'premium': 'Look like the premium brand you are.',
+        'fast_delivery': 'Logo in 24 hours. Seriously.',
+        'agency_quality': 'Agency quality. Startup prices.',
+        'feminine': 'Elegant. Feminine. Unforgettable.',
+        'established': 'For businesses ready to level up.',
+        'packaging': 'Packaging that sells itself.',
+        'full_branding': 'More than a logo. A complete brand.',
+        '24hr_delivery': 'Launch tomorrow. Start today.',
+    }
     
-    # Generate 10 image pins
-    for i in range(10):
-        pillar = random.choice(PIN_PILLARS)
-        link_index = i % 3
-        pin = {
-            "type": "image",
-            "title": generate_pin_title(pillar),
-            "description": generate_pin_description(pillar, link_index),
-            "hashtags": generate_hashtags(),
-            "link": AFFILIATE_LINKS[link_index],
-            "landing_page": LANDING_PAGES[i % 3],
-            "image_path": f"./pins/image_{i+1}.png",
-            "scheduled_time": get_schedule_time(i),
-        }
-        pins.append(pin)
+    description = f"{angle_hooks.get(angle, '')} {description}"
     
-    # Generate 5 video pins
-    for i in range(5):
-        script = VIDEO_SCRIPTS[i]
-        link_index = i % 3
-        pin = {
-            "type": "video",
-            "title": generate_pin_title(script),
-            "description": generate_pin_description(script, link_index),
-            "hashtags": generate_hashtags(),
-            "link": AFFILIATE_LINKS[link_index],
-            "landing_page": LANDING_PAGES[i % 3],
-            "video_path": f"./pins/video_{i+1}.mp4",
-            "scheduled_time": get_schedule_time(i + 10),
-        }
-        pins.append(pin)
+    # Select 5-7 relevant hashtags
+    selected_hashtags = random.sample(HASHTAGS, random.randint(5, 7))
+    hashtag_string = ' '.join(selected_hashtags)
     
-    return pins
+    return {
+        'title': title,
+        'description': f"{description}\n\n{hashtag_string}",
+        'link': AFFILIATE_LINKS[designer],
+        'designer': designer,
+        'angle': angle,
+    }
 
-def get_schedule_time(index):
-    """Get scheduled time based on index"""
-    morning_times = ["08:00", "08:30", "09:00", "09:30", "10:00"]
-    afternoon_times = ["13:00", "13:30", "14:00", "14:30", "15:00"]
-    evening_times = ["19:00", "19:30", "20:00", "20:30", "21:00"]
-    
-    if index < 5:
-        return morning_times[index]
-    elif index < 10:
-        return afternoon_times[index - 5]
-    else:
-        return evening_times[index - 10]
-
-def main():
+# ============================================
+# MAIN EXECUTION
+# ============================================
+if __name__ == '__main__':
     print("=" * 60)
-    print("EONATI Pinterest Automation")
-    print(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+    print("EONATI PINTEREST AUTOMATION")
+    print("=" * 60)
+    print(f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"Pins to post: 15")
+    print(f"Account: @Eonati2")
     print("=" * 60)
     
-    # Create pins directory
-    os.makedirs("./pins", exist_ok=True)
+    schedule = get_daily_schedule()
     
-    # Schedule pins
-    pins = schedule_pins()
+    for i, pin in enumerate(schedule, 1):
+        content = generate_pin_content(pin['type'], pin['designer'], pin['angle'])
+        
+        print(f"\n[PIN {i}/15]")
+        print(f"  Time: {pin['time']}")
+        print(f"  Type: {pin['type']}")
+        print(f"  Designer: {pin['designer']}")
+        print(f"  Angle: {pin['angle']}")
+        print(f"  Title: {content['title']}")
+        print(f"  Link: {content['link'][:60]}...")
+        print(f"  Hashtags: {' '.join(content['description'].split()[-7:])}")
     
-    print(f"\n✅ Generated {len(pins)} pins:")
-    print(f"   - 10 image pins")
-    print(f"   - 5 video pins")
-    
-    print("\n📋 Pin Schedule:")
-    for i, pin in enumerate(pins, 1):
-        print(f"   {i}. [{pin['scheduled_time']}] {pin['type'].upper()}: {pin['title'][:50]}...")
-    
-    print("\n🚀 Ready to post. Run with --post flag to execute.")
+    print("\n" + "=" * 60)
+    print("NEXT STEP: Run browser automation to upload these pins")
+    print("Command: hermes run pinterest-upload --schedule today")
     print("=" * 60)
-
-if __name__ == "__main__":
-    main()
