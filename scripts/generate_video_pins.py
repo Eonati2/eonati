@@ -1,185 +1,215 @@
 #!/usr/bin/env python3
 """
-EONATI Video Pin Generator
-Creates 9:16 vertical videos for Pinterest using FFmpeg + Edge TTS
-Generates 5 video pins per day
+Eonati Video Pin Generator
+Creates 5 Pinterest video pins (1080x1920, 15-30 seconds) using FFmpeg + Edge TTS
+Zero budget, unlimited, local generation
 """
 
 import os
 import subprocess
-import random
-from pathlib import Path
+from datetime import datetime
 
-# Video scripts
-SCRIPTS = [
+OUTPUT_DIR = '/Users/bmoni/eonati/pins/videos'
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+# Video scripts for 5 video pins
+VIDEO_SCRIPTS = [
     {
-        "hook": "No one bought… until this logo changed.",
-        "body": "A professional logo isn't just pretty. It's trust. It's credibility. It's the difference between scroll and stop.",
-        "cta": "Find your designer at Eonati",
+        'filename': 'video_001_no_one_bought.mp4',
+        'script': 'No one bought... until this logo changed.',
+        'duration': 15,
+        'angle': 'transformation',
+        'designer': 'alestra',
     },
     {
-        "hook": "Cheap logos cost trust.",
-        "body": "That $5 logo? Customers see it and think cheap. Unprofessional. Unreliable. Your logo is your first impression. Make it count.",
-        "cta": "Get pro design at Eonati",
+        'filename': 'video_002_cheap_logos.mp4',
+        'script': 'Cheap logos cost trust. Invest in your first impression.',
+        'duration': 15,
+        'angle': 'trust',
+        'designer': 'alestra',
     },
     {
-        "hook": "Customers judge your business in seconds.",
-        "body": "75% of people judge your credibility based on design alone. Seconds. That's all you get. What does your logo say?",
-        "cta": "Upgrade your brand today",
+        'filename': 'video_003_judge_seconds.mp4',
+        'script': 'Customers judge your business in seconds. Make it count.',
+        'duration': 15,
+        'angle': 'first_impression',
+        'designer': 'juhi',
     },
     {
-        "hook": "Startup to premium brand overnight.",
-        "body": "The right designer transforms everything. From amateur to authority. From unknown to unforgettable. Your turn.",
-        "cta": "Start your transformation",
+        'filename': 'video_004_startup_premium.mp4',
+        'script': 'Startup to premium brand overnight. Professional logo design from 23 euros.',
+        'duration': 20,
+        'angle': 'startup',
+        'designer': 'juhi',
     },
     {
-        "hook": "Your logo may be pushing buyers away.",
-        "body": "Bad design screams amateur. Good design whispers premium. Which one is yours? Time to find out.",
-        "cta": "See pro designers at Eonati",
+        'filename': 'video_005_pushing_away.mp4',
+        'script': 'Your logo may be pushing buyers away. Find out if yours is.',
+        'duration': 15,
+        'angle': 'warning',
+        'designer': 'valeriia',
     },
 ]
 
-# Color palettes for backgrounds
-COLORS = [
-    ("#0B1020", "#FFFFFF"),  # Dark blue bg, white text
-    ("#1a1a2e", "#FFFFFF"),  # Navy bg, white text
-    ("#16213e", "#FFFFFF"),  # Deep blue bg, white text
-    ("#0f3460", "#FFFFFF"),  # Blue bg, white text
-    ("#1B262C", "#FFFFFF"),  # Charcoal bg, white text
-]
 
-def generate_voiceover(text, output_path):
+def generate_voiceover(script, output_path, voice='en-US-ChristopherNeural'):
     """Generate voiceover using Edge TTS"""
-    voice = "en-US-ChristopherNeural"
+    print(f"    Generating voiceover...")
+    
     cmd = [
-        "edge-tts",
-        "--text", text,
-        "--write-media", output_path,
-        "--voice", voice,
+        'edge-tts',
+        '--text', script,
+        '--voice', voice,
+        '--write-media', output_path,
     ]
-    subprocess.run(cmd, check=True)
-    return output_path
+    
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    
+    if result.returncode == 0:
+        print(f"    ✓ Voiceover saved: {output_path}")
+        return True
+    else:
+        print(f"    ✗ Voiceover failed: {result.stderr}")
+        return False
 
-def create_background_image(width, height, bg_color, output_path):
-    """Create solid color background image using Pillow"""
+
+def create_video_pin(video_data):
+    """Create a single video pin"""
+    print(f"  Creating {video_data['filename']}...")
+    
+    audio_path = os.path.join(OUTPUT_DIR, f"audio_{video_data['filename'].replace('.mp4', '.mp3')}")
+    output_path = os.path.join(OUTPUT_DIR, video_data['filename'])
+    
+    # Step 1: Generate voiceover
+    if not generate_voiceover(video_data['script'], audio_path):
+        return None
+    
+    # Step 2: Create solid color background image using Pillow
+    bg_path = os.path.join(OUTPUT_DIR, f"bg_{video_data['filename'].replace('.mp4', '.png')}")
+    
     from PIL import Image, ImageDraw, ImageFont
     
-    img = Image.new('RGB', (width, height), color=bg_color)
+    # Get color based on designer
+    colors = {
+        'alestra': '#2563EB',
+        'juhi': '#60A5FA',
+        'valeriia': '#F59E0B',
+    }
+    bg_color = colors.get(video_data['designer'], '#0B1020')
+    
+    # Create background image
+    img = Image.new('RGB', (1080, 1920), bg_color)
     draw = ImageDraw.Draw(img)
     
-    # Save image
-    img.save(output_path)
-    return output_path
-
-def create_text_overlay(text, width, height, output_path, font_size=48):
-    """Create text overlay image"""
-    from PIL import Image, ImageDraw, ImageFont
-    
-    # Create transparent image
-    img = Image.new('RGBA', (width, height), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(img)
-    
-    # Try to use system font
+    # Add text
     try:
-        font = ImageFont.truetype("/System/Fonts/Helvetica.ttc", font_size)
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 56)
     except:
         font = ImageFont.load_default()
     
-    # Get text bounding box
-    bbox = draw.textbbox((0, 0), text, font=font)
-    text_width = bbox[2] - bbox[0]
-    text_height = bbox[3] - bbox[1]
+    # Text wrapping
+    text = video_data['script']
+    lines = []
+    words = text.split()
+    current_line = ""
+    for word in words:
+        test_line = f"{current_line} {word}".strip()
+        bbox = draw.textbbox((0, 0), test_line, font=font)
+        if bbox[2] - bbox[0] < 900:
+            current_line = test_line
+        else:
+            if current_line:
+                lines.append(current_line)
+            current_line = word
+    if current_line:
+        lines.append(current_line)
     
-    # Center text
-    x = (width - text_width) // 2
-    y = (height - text_height) // 2
+    # Draw text centered
+    total_height = len(lines) * 70
+    y = (1920 - total_height) // 2
+    for line in lines:
+        bbox = draw.textbbox((0, 0), line, font=font)
+        text_width = bbox[2] - bbox[0]
+        x = (1080 - text_width) // 2
+        draw.text((x, y), line, fill='#FFFFFF', font=font)
+        y += 70
     
-    # Draw text with shadow
-    draw.text((x+2, y+2), text, fill=(0, 0, 0, 128), font=font)
-    draw.text((x, y), text, fill=(255, 255, 255, 255), font=font)
+    img.save(bg_path)
     
-    img.save(output_path)
-    return output_path
+    # Step 3: Combine image + audio into video
+    cmd = [
+        'ffmpeg', '-y',
+        '-loop', '1',
+        '-i', bg_path,
+        '-i', audio_path,
+        '-c:v', 'libx264',
+        '-tune', 'stillimage',
+        '-c:a', 'aac',
+        '-b:a', '192k',
+        '-pix_fmt', 'yuv420p',
+        '-shortest',
+        output_path,
+    ]
+    
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    
+    if result.returncode == 0:
+        print(f"  ✓ Video saved: {output_path}")
+        
+        # Cleanup temp files
+        if os.path.exists(audio_path):
+            os.remove(audio_path)
+        if os.path.exists(bg_path):
+            os.remove(bg_path)
+        
+        return output_path
+    else:
+        print(f"  ✗ Video failed: {result.stderr}")
+        return None
 
-def create_video_pin(script_index, output_dir="./pins/videos"):
-    """Create a complete video pin"""
-    os.makedirs(output_dir, exist_ok=True)
-    
-    script = SCRIPTS[script_index]
-    bg_color, text_color = COLORS[script_index % len(COLORS)]
-    
-    print(f"🎬 Creating video {script_index + 1}: {script['hook']}")
-    
-    # Generate voiceover
-    full_text = f"{script['hook']} {script['body']} {script['cta']}"
-    voiceover_path = f"{output_dir}/voice_{script_index + 1}.mp3"
-    generate_voiceover(full_text, voiceover_path)
-    
-    # Get audio duration
-    result = subprocess.run(
-        ["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", voiceover_path],
-        capture_output=True, text=True, check=True
-    )
-    duration = float(result.stdout.strip())
-    
-    # Create background image
-    bg_path = f"{output_dir}/bg_{script_index + 1}.png"
-    create_background_image(1080, 1920, bg_color, bg_path)
-    
-    # Create text overlays
-    hook_path = f"{output_dir}/hook_{script_index + 1}.png"
-    create_text_overlay(script['hook'], 1080, 1920, hook_path, font_size=72)
-    
-    cta_path = f"{output_dir}/cta_{script_index + 1}.png"
-    create_text_overlay(script['cta'], 1080, 1920, cta_path, font_size=56)
-    
-    # Create video with FFmpeg
-    output_path = f"{output_dir}/video_{script_index + 1}.mp4"
-    
-    # Build FFmpeg command
-    ffmpeg_cmd = [
-        "ffmpeg", "-y",
-        "-loop", "1", "-i", bg_path,
-        "-i", voiceover_path,
-        "-vf", f"drawtext=text='{script['hook']}':fontsize=72:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2+200",
-        "-t", str(duration),
-        "-c:v", "libx264",
-        "-c:a", "aac",
-        "-shortest",
-        "-pix_fmt", "yuv420p",
-        output_path,
-    ]
-    
-    # Simplified version without complex text rendering
-    ffmpeg_cmd = [
-        "ffmpeg", "-y",
-        "-loop", "1", "-i", bg_path,
-        "-i", voiceover_path,
-        "-t", str(duration),
-        "-c:v", "libx264",
-        "-c:a", "aac",
-        "-shortest",
-        "-pix_fmt", "yuv420p",
-        output_path,
-    ]
-    
-    subprocess.run(ffmpeg_cmd, check=True)
-    
-    print(f"✅ Video created: {output_path}")
-    return output_path
 
 def main():
     print("=" * 60)
-    print("EONATI Video Pin Generator")
+    print("EONATI VIDEO PIN GENERATOR")
+    print("=" * 60)
+    print(f"Output: {OUTPUT_DIR}")
+    print(f"Videos to create: {len(VIDEO_SCRIPTS)}")
+    print(f"Dimensions: 1080x1920px (9:16 vertical)")
+    print("=" * 60)
+    print()
+    
+    # Check for required tools
+    try:
+        subprocess.run(['edge-tts', '--version'], capture_output=True, check=True)
+        print("✓ Edge TTS found")
+    except:
+        print("✗ Edge TTS not found. Install with: pip install edge-tts")
+        return []
+    
+    try:
+        subprocess.run(['ffmpeg', '-version'], capture_output=True, check=True)
+        print("✓ FFmpeg found")
+    except:
+        print("✗ FFmpeg not found. Install with: brew install ffmpeg")
+        return []
+    
+    print()
+    
+    created = []
+    for video in VIDEO_SCRIPTS:
+        path = create_video_pin(video)
+        if path:
+            created.append(path)
+        print()
+    
+    print("=" * 60)
+    print("COMPLETE")
+    print(f"Created: {len(created)}/{len(VIDEO_SCRIPTS)} video pins")
+    print(f"Location: {OUTPUT_DIR}")
     print("=" * 60)
     
-    # Generate all 5 video pins
-    for i in range(5):
-        create_video_pin(i)
-    
-    print("\n✅ All 5 video pins generated!")
-    print("📁 Location: ./pins/videos/")
-    print("=" * 60)
+    return created
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     main()

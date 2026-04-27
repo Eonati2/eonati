@@ -107,13 +107,10 @@ export default function Blog() {
                   {post.excerpt}
                 </p>
                 
-                <Link 
-                  href={post.slug}
-                  className="text-eonati-primary hover:text-blue-400 text-sm font-medium inline-flex items-center gap-1"
-                >
-                  Read More
+                <span className="text-gray-500 text-sm font-medium inline-flex items-center gap-1">
+                  Coming Soon
                   <span>→</span>
-                </Link>
+                </span>
               </motion.article>
             ))}
           </div>
