@@ -1,19 +1,33 @@
 import type { Metadata } from 'next'
-import { Inter, Manrope } from 'next/font/google'
-import './globals.css'
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope' })
 
 export const metadata: Metadata = {
-  title: 'Eonati | Premium Logo Designers',
-  description: 'Discover vetted Fiverr Pro designers trusted by thousands to build brands people trust instantly.',
-  keywords: ['logo design', 'professional logo design', 'premium logo design', 'brand identity design', 'Fiverr Pro'],
+  title: 'Eonati | Hire Professional Logo Designers - Fiverr Pro',
+  description: 'Discover vetted Fiverr Pro logo designers. Custom logo design, professional brand identity, and affordable pricing. Hire a freelance logo designer today.',
+  keywords: 'logo design, professional logo design, custom logo design, hire freelance logo designer, brand identity, Fiverr Pro designers, affordable logo design',
   authors: [{ name: 'Eonati' }],
   openGraph: {
-    title: 'Eonati | Premium Logo Designers',
-    description: 'Find elite Fiverr Pro branding talent faster.',
+    title: 'Eonati | Professional Logo Designers',
+    description: 'Find elite Fiverr Pro branding talent. Custom logo design starting from $23.',
     type: 'website',
+    locale: 'en_US',
+    siteName: 'Eonati',
+    images: [
+      {
+        url: '/eonati/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Eonati - Professional Logo Design Services',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Eonati | Professional Logo Designers',
+    description: 'Find elite Fiverr Pro branding talent. Custom logo design starting from $23.',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 
@@ -24,9 +38,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${manrope.variable} font-sans antialiased`}>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   )
 }
