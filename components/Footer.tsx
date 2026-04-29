@@ -15,18 +15,18 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-4">Designers</h4>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li><a href="/designers" className="hover:text-fiverr-green transition">Top Designers</a></li>
-              <li><a href="/startup" className="hover:text-fiverr-green transition">For Startups</a></li>
-              <li><a href="/luxury" className="hover:text-fiverr-green transition">Luxury Brands</a></li>
+              <li><a href="designers.html" className="hover:text-fiverr-green transition">Top Designers</a></li>
+              <li><a href="startup.html" className="hover:text-fiverr-green transition">For Startups</a></li>
+              <li><a href="luxury.html" className="hover:text-fiverr-green transition">Luxury Brands</a></li>
             </ul>
           </div>
           
           <div>
             <h4 className="font-semibold text-white mb-4">Resources</h4>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li><a href="/blog" className="hover:text-fiverr-green transition">Blog</a></li>
-              <li><a href="/compare" className="hover:text-fiverr-green transition">Compare</a></li>
-              <li><a href="/faq" className="hover:text-fiverr-green transition">FAQ</a></li>
+              <li><a href="blog.html" className="hover:text-fiverr-green transition">Blog</a></li>
+              <li><a href="compare.html" className="hover:text-fiverr-green transition">Compare</a></li>
+              <li><a href="faq.html" className="hover:text-fiverr-green transition">FAQ</a></li>
             </ul>
           </div>
           

@@ -5,9 +5,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: '/eonati',
-  assetPrefix: '/eonati/',
-  trailingSlash: true,
+  trailingSlash: false,
+  assetPrefix: './',
 }
 
 module.exports = nextConfig

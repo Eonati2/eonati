@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description: 'Discover vetted Fiverr Pro logo designers. Custom logo design, professional brand identity, and affordable pricing. Hire a freelance logo designer today.',
   keywords: 'logo design, professional logo design, custom logo design, hire freelance logo designer, brand identity, Fiverr Pro designers, affordable logo design',
   authors: [{ name: 'Eonati' }],
+  metadataBase: new URL('https://eonati2.github.io/eonati/'),
   openGraph: {
     title: 'Eonati | Professional Logo Designers',
     description: 'Find elite Fiverr Pro branding talent. Custom logo design starting from $23.',
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
     siteName: 'Eonati',
     images: [
       {
-        url: '/eonati/og-image.jpg',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Eonati - Professional Logo Design Services',

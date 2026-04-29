@@ -8,12 +8,12 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const navLinks = [
-    { href: '/designers', label: 'Designers' },
-    { href: '/startup', label: 'Startup' },
-    { href: '/luxury', label: 'Luxury' },
-    { href: '/blog', label: 'Blog' },
-    { href: '/compare', label: 'Compare' },
-    { href: '/faq', label: 'FAQ' },
+    { href: 'designers.html', label: 'Designers' },
+    { href: 'startup.html', label: 'Startup' },
+    { href: 'luxury.html', label: 'Luxury' },
+    { href: 'blog.html', label: 'Blog' },
+    { href: 'compare.html', label: 'Compare' },
+    { href: 'faq.html', label: 'FAQ' },
   ]
 
   return (

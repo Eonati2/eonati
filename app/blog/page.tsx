@@ -127,7 +127,7 @@ export default function Blog() {
             Skip the guesswork. Get matched with vetted Fiverr Pro designers.
           </p>
           <Link
-            href="/designers"
+            href="designers.html"
             className="inline-block bg-eonati-primary hover:bg-blue-600 text-white px-10 py-4 rounded-lg font-semibold text-lg transition"
           >
             View Top Designers
