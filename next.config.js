@@ -6,7 +6,7 @@ const nextConfig = {
     unoptimized: true,
   },
   trailingSlash: false,
-  assetPrefix: './',
+  assetPrefix: '/eonati/',
 }
 
 module.exports = nextConfig
