@@ -61,11 +61,11 @@ export default function TopDesigners() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-5xl md:text-6xl font-display font-bold text-white mb-6"
+            className="text-5xl md:text-6xl font-display font-bold text-slate-navy mb-6"
           >
             Top Logo Designers
           </motion.h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-navy max-w-3xl mx-auto">
             Hand-picked Fiverr Pro talent with proven track records. Each designer has been vetted for quality, communication, and delivery.
           </p>
         </div>
@@ -82,39 +82,39 @@ export default function TopDesigners() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white/5 border border-white/10 rounded-2xl p-8 hover:border-eonati-primary/50 transition"
+                className="bg-slate-50 border border-gray-200 rounded-2xl p-8 hover:border-blue-500/50 transition"
               >
                 <div className="grid md:grid-cols-3 gap-8">
                   {/* Left: Badge + Rating */}
                   <div className="md:col-span-1">
                     <div className="flex items-center justify-between mb-4">
-                      <span className="bg-eonati-primary/20 text-eonati-primary px-4 py-2 rounded-full text-sm font-medium">
+                      <span className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-medium">
                         {designer.badge}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 mb-4">
-                      <span className="text-yellow-400 text-2xl">★</span>
-                      <span className="text-white text-2xl font-bold">{designer.rating}</span>
-                      <span className="text-gray-400">({designer.reviews} reviews)</span>
+                      <span className="text-yellow-500 text-2xl">★</span>
+                      <span className="text-slate-navy text-2xl font-bold">{designer.rating}</span>
+                      <span className="text-slate-navy/70">({designer.reviews} reviews)</span>
                     </div>
-                    <div className="text-3xl font-bold text-white mb-2">{designer.price}</div>
-                    <div className="text-gray-400 text-sm">Starting price</div>
+                    <div className="text-3xl font-bold text-slate-navy mb-2">{designer.price}</div>
+                    <div className="text-slate-navy/70 text-sm">Starting price</div>
                   </div>
 
                   {/* Middle: Info */}
                   <div className="md:col-span-1">
-                    <h3 className="text-2xl font-bold text-white mb-2">{designer.name}</h3>
-                    <p className="text-gray-400 text-sm mb-4">{designer.tagline}</p>
-                    <p className="text-gray-300 mb-6">{designer.description}</p>
+                    <h3 className="text-2xl font-bold text-slate-navy mb-2">{designer.name}</h3>
+                    <p className="text-slate-navy/70 text-sm mb-4">{designer.tagline}</p>
+                    <p className="text-slate-navy mb-6">{designer.description}</p>
                     
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <span className="text-gray-400">Delivery:</span>
-                        <span className="text-white ml-2">{designer.delivery}</span>
+                        <span className="text-slate-navy/70">Delivery:</span>
+                        <span className="text-slate-navy ml-2">{designer.delivery}</span>
                       </div>
                       <div>
-                        <span className="text-gray-400">Revisions:</span>
-                        <span className="text-white ml-2">{designer.revisions}</span>
+                        <span className="text-slate-navy/70">Revisions:</span>
+                        <span className="text-slate-navy ml-2">{designer.revisions}</span>
                       </div>
                     </div>
                   </div>
@@ -123,8 +123,8 @@ export default function TopDesigners() {
                   <div className="md:col-span-1">
                     <ul className="space-y-2 mb-6">
                       {designer.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-2 text-gray-300 text-sm">
-                          <span className="text-eonati-primary">✓</span>
+                        <li key={feature} className="flex items-center gap-2 text-slate-navy text-sm">
+                          <span className="text-blue-600">✓</span>
                           {feature}
                         </li>
                       ))}
@@ -134,7 +134,7 @@ export default function TopDesigners() {
                       href={designer.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block w-full bg-eonati-primary hover:bg-blue-600 text-white text-center py-4 rounded-lg font-semibold transition"
+                      className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-4 rounded-lg font-semibold transition"
                     >
                       Hire {designer.name.split(' ')[0]}
                     </a>
@@ -147,31 +147,31 @@ export default function TopDesigners() {
       </section>
 
       {/* TRUST SECTION */}
-      <section className="py-20 px-4 bg-white/5">
+      <section className="py-20 px-4 bg-slate-50">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl font-display font-bold text-white mb-12">
+          <h2 className="text-3xl font-display font-bold text-slate-navy mb-12">
             Why These Designers?
           </h2>
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="text-4xl mb-4">🏆</div>
-              <h3 className="text-lg font-bold text-white mb-2">Fiverr Pro Vetted</h3>
-              <p className="text-gray-400 text-sm">Only top 1% of applicants accepted</p>
+              <h3 className="text-lg font-bold text-slate-navy mb-2">Fiverr Pro Vetted</h3>
+              <p className="text-slate-navy/80 text-sm">Only top 1% of applicants accepted</p>
             </div>
             <div>
               <div className="text-4xl mb-4">⭐</div>
-              <h3 className="text-lg font-bold text-white mb-2">4.8+ Average Rating</h3>
-              <p className="text-gray-400 text-sm">Consistently excellent reviews</p>
+              <h3 className="text-lg font-bold text-slate-navy mb-2">4.8+ Average Rating</h3>
+              <p className="text-slate-navy/80 text-sm">Consistently excellent reviews</p>
             </div>
             <div>
               <div className="text-4xl mb-4">⚡</div>
-              <h3 className="text-lg font-bold text-white mb-2">Fast Delivery</h3>
-              <p className="text-gray-400 text-sm">24hr to 7-day turnaround</p>
+              <h3 className="text-lg font-bold text-slate-navy mb-2">Fast Delivery</h3>
+              <p className="text-slate-navy/80 text-sm">24hr to 7-day turnaround</p>
             </div>
             <div>
               <div className="text-4xl mb-4">💼</div>
-              <h3 className="text-lg font-bold text-white mb-2">Business Ready</h3>
-              <p className="text-gray-400 text-sm">Full commercial rights included</p>
+              <h3 className="text-lg font-bold text-slate-navy mb-2">Business Ready</h3>
+              <p className="text-slate-navy/80 text-sm">Full commercial rights included</p>
             </div>
           </div>
         </div>

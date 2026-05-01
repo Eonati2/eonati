@@ -3,8 +3,24 @@
 import { motion } from 'framer-motion'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import DesignerCard from '@/components/DesignerCard'
 
 export default function Startup() {
+  const designer = {
+    name: 'Juhi / Explorance',
+    tagline: 'Best for Startups & SaaS Companies',
+    rating: 4.8,
+    reviews: '9,300+',
+    price: '€23',
+    badge: 'Fiverr Pro',
+    link: 'https://pro.fiverr.com/freelancers/explorance?utm_source=1139651&utm_medium=cx_affiliate&utm_campaign=_bus-y&afp=&cxd_token=1139651',
+    features: ['Minimalist Logos', 'Startup Branding', 'Tech/SaaS Focus', 'Vector Files', '24hr Delivery'],
+    description: '12+ years crafting clean, modern logos for startups and tech companies. Known for lightning-fast 24hr delivery and minimalist aesthetics that scale beautifully.',
+    delivery: '24 hours',
+    revisions: '5',
+    files: ['AI', 'EPS', 'PDF', 'PNG', 'JPG', 'Vector'],
+  }
+
   return (
     <main className="min-h-screen bg-eonati-bg">
       <Navbar />
@@ -16,11 +32,11 @@ export default function Startup() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-5xl md:text-6xl font-display font-bold text-white mb-6"
+            className="text-5xl md:text-6xl font-display font-bold text-slate-navy mb-6"
           >
             Startup Logo Designers
           </motion.h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-navy max-w-3xl mx-auto">
             Fast, affordable, and modern logos built for startups, SaaS, and tech companies.
           </p>
         </div>
@@ -29,116 +45,106 @@ export default function Startup() {
       {/* FEATURED: JUHI */}
       <section className="py-12 px-4">
         <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-blue-500/30 rounded-3xl p-8 md:p-12"
-          >
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <span className="bg-blue-500/20 text-blue-400 px-4 py-2 rounded-full text-sm font-medium">
-                  Best for Startups
-                </span>
-                <h2 className="text-4xl font-display font-bold text-white mt-4 mb-2">
-                  Juhi / Explorance
-                </h2>
-                <p className="text-gray-300 mb-6">
-                  12+ years crafting clean, modern logos for startups and tech companies. 
-                  Known for lightning-fast 24hr delivery and minimalist aesthetics that scale beautifully.
-                </p>
-                
-                <div className="grid grid-cols-2 gap-4 mb-8">
-                  <div className="bg-white/5 rounded-lg p-4">
-                    <div className="text-3xl font-bold text-white">4.8★</div>
-                    <div className="text-gray-400 text-sm">9,300+ reviews</div>
-                  </div>
-                  <div className="bg-white/5 rounded-lg p-4">
-                    <div className="text-3xl font-bold text-white">€23</div>
-                    <div className="text-gray-400 text-sm">Starting price</div>
-                  </div>
-                  <div className="bg-white/5 rounded-lg p-4">
-                    <div className="text-3xl font-bold text-white">24hr</div>
-                    <div className="text-gray-400 text-sm">Delivery</div>
-                  </div>
-                  <div className="bg-white/5 rounded-lg p-4">
-                    <div className="text-3xl font-bold text-white">5</div>
-                    <div className="text-gray-400 text-sm">Revisions</div>
-                  </div>
-                </div>
-
-                <ul className="space-y-2 mb-8">
-                  {['Minimalist Logos', 'Startup Branding', 'Tech/SaaS Focus', 'Vector Files', '24hr Delivery'].map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-gray-300">
-                      <span className="text-blue-400">✓</span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                <a
-                  href="https://pro.fiverr.com/freelancers/explorance?utm_source=1139651&utm_medium=cx_affiliate&utm_campaign=_bus-y&afp=&cxd_token=1139651_44793043&show_join=true&ref_ctx_id=c86858ecc5314ce6838c8f86cbacafa1&expertises=type%3Aleaf_cat_id%2Cid%3A49%2CparentId%3A49%7Ctype%3Askill%2Cid%3A617fa6650565f0778900660f%2CparentId%3Anull%7Ctype%3Askill%2Cid%3A617fa6510565f0778900601a%2CparentId%3Anull%7Ctype%3Askill%2Cid%3A617fa6650565f077890065e7%2CparentId%3Anull&gigs=id%3A454378697%2Cpckg_id%3A1%7Cid%3A307424447%2Cpckg_id%3A1%7Cid%3A194009784%2Cpckg_id%3A1&imp_id=e3c035bd-cff6-4875-8585-41ba230c3ad4&ref=gig_price_range%3A0%2C150&source=expert_listings_page&is_experiential=true"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full bg-blue-500 hover:bg-blue-600 text-white text-center py-4 rounded-lg font-semibold text-lg transition"
-                >
-                  Hire Juhi Now
-                </a>
-              </div>
-
-              <div className="bg-white/5 rounded-2xl p-8">
-                <h3 className="text-xl font-bold text-white mb-4">Perfect For:</h3>
-                <ul className="space-y-3 mb-6">
-                  {['Tech Startups', 'SaaS Companies', 'eCommerce Brands', 'Mobile Apps', 'Personal Brands'].map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-gray-300">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
-                <h3 className="text-xl font-bold text-white mb-4">You Get:</h3>
-                <ul className="space-y-2 text-gray-400 text-sm">
-                  <li>• Multiple concepts to choose from</li>
-                  <li>• Source files (AI, EPS, PDF)</li>
-                  <li>• High-res PNG & JPG</li>
-                  <li>• Vector format for scaling</li>
-                  <li>• Social media kit</li>
-                  <li>• Commercial usage rights</li>
-                </ul>
-              </div>
-            </div>
-          </motion.div>
+          <DesignerCard {...designer} />
         </div>
       </section>
 
-      {/* WHY STARTUP LOGOS MATTER */}
-      <section className="py-20 px-4 bg-white/5">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-display font-bold text-white text-center mb-12">
-            Why Startups Need Pro Logos
+      {/* SEO CONTENT SECTION */}
+      <section className="py-20 px-4 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-slate-navy text-center mb-4">
+            Why Choose a Professional Startup Logo Designer?
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="text-5xl mb-4">🚀</div>
-              <h3 className="text-xl font-bold text-white mb-2">Investor Ready</h3>
-              <p className="text-gray-400">
-                First impressions matter. A pro logo signals you're serious about building something real.
+          <p className="text-center text-slate-navy/80 mb-12 text-lg">
+            Your logo is the foundation of your brand identity. Here's why investing in <strong>custom logo design</strong> matters.
+          </p>
+
+          <div className="space-y-12">
+            {/* Section 1 */}
+            <div>
+              <h3 className="text-2xl font-bold text-slate-navy mb-4">
+                🚀 First Impressions Are Everything
+              </h3>
+              <p className="text-slate-navy/80 mb-4">
+                When investors, customers, or partners first encounter your startup, your logo is often the first thing they see. A <strong>professional brand identity</strong> signals that you're serious about building something real.
+              </p>
+              <p className="text-slate-navy/80">
+                Studies show that <strong>75% of consumers judge a company's credibility based on design alone</strong>. Don't let an amateur logo cost you trust before you've even had a chance to pitch.
               </p>
             </div>
-            <div className="text-center">
-              <div className="text-5xl mb-4">💰</div>
-              <h3 className="text-xl font-bold text-white mb-2">Budget Friendly</h3>
-              <p className="text-gray-400">
-                Get agency-quality work at startup-friendly prices. No $10k+ design retainers needed.
+
+            {/* Section 2 */}
+            <div>
+              <h3 className="text-2xl font-bold text-slate-navy mb-4">
+                💰 Agency Quality at Startup Prices
+              </h3>
+              <p className="text-slate-navy/80 mb-4">
+                Traditional branding agencies charge $10,000+ for a complete identity. When you <strong>hire a freelance logo designer</strong> through Fiverr Pro, you get the same level of expertise at a fraction of the cost.
+              </p>
+              <div className="bg-slate-50 rounded-xl p-6 border border-gray-200">
+                <h4 className="font-bold text-slate-navy mb-3">Startup-Friendly Pricing Tiers:</h4>
+                <ul className="space-y-2 text-slate-navy">
+                  <li><strong>€23</strong> - Essential logo package for MVP launches</li>
+                  <li><strong>€50-€100</strong> - Complete brand identity with multiple concepts</li>
+                  <li><strong>€150+</strong> - Full branding suite with guidelines and mockups</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Section 3 */}
+            <div>
+              <h3 className="text-2xl font-bold text-slate-navy mb-4">
+                ⚡ Launch in 24 Hours, Not 6 Weeks
+              </h3>
+              <p className="text-slate-navy/80 mb-4">
+                Startup moves fast. Waiting weeks for a design agency isn't an option. Fiverr Pro designers like Juhi specialize in <strong>24-hour delivery</strong> without sacrificing quality.
+              </p>
+              <p className="text-slate-navy/80">
+                You can go from concept to launch-ready logo in less than a day—perfect for MVP releases, pitch decks, or last-minute rebrands.
               </p>
             </div>
-            <div className="text-center">
-              <div className="text-5xl mb-4">⚡</div>
-              <h3 className="text-xl font-bold text-white mb-2">Launch Fast</h3>
-              <p className="text-gray-400">
-                24-48hr delivery means you can launch your MVP without waiting weeks for design.
+
+            {/* Section 4 */}
+            <div>
+              <h3 className="text-2xl font-bold text-slate-navy mb-4">
+                🎨 What You Get With Professional Logo Design
+              </h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="bg-slate-50 rounded-lg p-4 border border-gray-200">
+                  <ul className="space-y-2 text-slate-navy">
+                    <li>✓ Multiple logo concepts to choose from</li>
+                    <li>✓ Vector source files (AI, EPS, PDF)</li>
+                    <li>✓ High-resolution PNG & JPG exports</li>
+                    <li>✓ Scalable formats for any use case</li>
+                  </ul>
+                </div>
+                <div className="bg-slate-50 rounded-lg p-4 border border-gray-200">
+                  <ul className="space-y-2 text-slate-navy">
+                    <li>✓ Social media kit for instant branding</li>
+                    <li>✓ Commercial usage rights included</li>
+                    <li>✓ Unlimited revisions on most packages</li>
+                    <li>✓ Fast communication and support</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Box */}
+            <div className="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200 rounded-2xl p-8 text-center">
+              <h3 className="text-2xl font-bold text-slate-navy mb-4">
+                Ready to Build Your Brand?
+              </h3>
+              <p className="text-slate-navy/80 mb-6">
+                Don't gamble with your startup's first impression. Work with a vetted Fiverr Pro designer who understands what it takes to build brands that scale.
               </p>
+              <a
+                href={designer.link}
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition"
+              >
+                Hire Juhi Now - Starting at €23
+              </a>
             </div>
           </div>
         </div>

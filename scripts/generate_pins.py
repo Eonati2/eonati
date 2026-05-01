@@ -1,240 +1,203 @@
 #!/usr/bin/env python3
 """
-Eonati Pin Image Generator
-Creates 10 Pinterest-optimized pin images (1080x1920) for logo design promotion
-Uses Pillow for image generation - no external APIs needed
+Generate 3 Pinterest pin images for Eonati affiliate marketing.
+Dimensions: 1000x1500px (2:3 ratio, Pinterest optimal)
 """
 
 from PIL import Image, ImageDraw, ImageFont
 import os
-from datetime import datetime
 
 # Output directory
-OUTPUT_DIR = '/Users/bmoni/eonati/pins'
+OUTPUT_DIR = os.path.expanduser("~/eonati/pins")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# Pinterest dimensions
-PIN_WIDTH = 1080
-PIN_HEIGHT = 1920
+# Brand colors
+NAVY = "#2D3E50"
+GREEN = "#1DBF73"
+WHITE = "#FFFFFF"
+LIGHT_GRAY = "#F4F7F6"
+DARK_GRAY = "#1A1A1A"
 
-# Color palette
-COLORS = {
-    'bg_dark': '#0B1020',
-    'bg_gradient_1': '#1E3A5F',
-    'bg_gradient_2': '#0B1020',
-    'primary': '#2563EB',
-    'accent': '#60A5FA',
-    'white': '#FFFFFF',
-    'text_gray': '#94A3B8',
-    'gold': '#F59E0B',
-    'rose': '#F43F5E',
+# Pin dimensions
+WIDTH = 1000
+HEIGHT = 1500
+
+# Affiliate links
+LINKS = {
+    "valeriia": "https://pro.fiverr.com/freelancers/valeriiaty?ref_ctx_id=2eb6e0b48e78498a81c78fd6468c0401",
+    "alestra": "https://go.fiverr.com/visit/?bta=1139651&brand=fp&landingPage=https%253A%252F%252Fpro.fiverr.com%252Fagencies%252Falestra",
+    "juhi": "https://pro.fiverr.com/freelancers/explorance?utm_source=1139651&utm_medium=cx_affiliate",
 }
 
-# Pin content templates
-PINS = [
+def get_font(size):
+    """Load font with fallback."""
+    try:
+        return ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", size)
+    except:
+        try:
+            return ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", size)
+        except:
+            return ImageFont.load_default()
+
+def create_pin(headline, subtext, price, badge, designer, color_scheme):
+    """Create a single Pinterest pin."""
+    
+    # Create background
+    img = Image.new('RGB', (WIDTH, HEIGHT), color=LIGHT_GRAY)
+    draw = ImageDraw.Draw(img)
+    
+    # Gradient overlay (top to bottom)
+    for y in range(HEIGHT):
+        alpha = int(255 * (y / HEIGHT))
+        if color_scheme == "luxury":
+            color = (45, 62, 80)  # Navy
+        elif color_scheme == "value":
+            color = (29, 191, 115)  # Green
+        else:
+            color = (100, 100, 100)  # Gray
+        
+        # Blend with light gray
+        blend_factor = min(0.3, y / HEIGHT)
+        r = int(LIGHT_GRAY[1:3], 16) + int((color[0] - int(LIGHT_GRAY[1:3], 16)) * blend_factor)
+        g = int(LIGHT_GRAY[3:5], 16) + int((color[1] - int(LIGHT_GRAY[3:5], 16)) * blend_factor)
+        b = int(LIGHT_GRAY[5:7], 16) + int((color[2] - int(LIGHT_GRAY[5:7], 16)) * blend_factor)
+        draw.line([(0, y), (WIDTH, y)], fill=(r, g, b))
+    
+    # Load fonts
+    headline_font = get_font(72)
+    subtext_font = get_font(42)
+    price_font = get_font(120)
+    badge_font = get_font(36)
+    footer_font = get_font(28)
+    
+    # Draw badge (top center)
+    badge_text = badge
+    badge_bbox = draw.textbbox((0, 0), badge_text, font=badge_font)
+    badge_width = badge_bbox[2] - badge_bbox[0] + 60
+    badge_height = 60
+    badge_x = (WIDTH - badge_width) // 2
+    badge_y = 60
+    
+    # Badge background
+    badge_color = GREEN if color_scheme == "value" else NAVY
+    draw.rounded_rectangle(
+        [(badge_x, badge_y), (badge_x + badge_width, badge_y + badge_height)],
+        radius=30,
+        fill=badge_color
+    )
+    
+    # Badge text
+    badge_text_bbox = draw.textbbox((0, 0), badge_text, font=badge_font)
+    badge_text_width = badge_text_bbox[2] - badge_text_bbox[0]
+    badge_text_x = (WIDTH - badge_text_width) // 2
+    badge_text_y = badge_y + 15
+    draw.text((badge_text_x, badge_text_y), badge_text, fill=WHITE, font=badge_font)
+    
+    # Draw headline (centered, upper third)
+    headline_y = 200
+    headline_bbox = draw.textbbox((0, 0), headline, font=headline_font)
+    headline_width = headline_bbox[2] - headline_bbox[0]
+    headline_x = (WIDTH - headline_width) // 2
+    draw.text((headline_x, headline_y), headline, fill=NAVY, font=headline_font)
+    
+    # Draw subtext (centered, below headline)
+    subtext_y = headline_y + 100
+    subtext_bbox = draw.textbbox((0, 0), subtext, font=subtext_font)
+    subtext_width = subtext_bbox[2] - subtext_bbox[0]
+    subtext_x = (WIDTH - subtext_width) // 2
+    draw.text((subtext_x, subtext_y), subtext, fill="#666666", font=subtext_font)
+    
+    # Draw price (centered, middle)
+    price_y = 550
+    price_text = f"${price}"
+    price_bbox = draw.textbbox((0, 0), price_text, font=price_font)
+    price_width = price_bbox[2] - price_bbox[0]
+    price_x = (WIDTH - price_width) // 2
+    draw.text((price_x, price_y), price_text, fill=GREEN, font=price_font)
+    
+    # Draw "Starting at" label
+    label_text = "Starting at"
+    label_bbox = draw.textbbox((0, 0), label_text, font=subtext_font)
+    label_width = label_bbox[2] - label_bbox[0]
+    label_x = (WIDTH - label_width) // 2
+    draw.text((label_x, price_y - 50), label_text, fill="#666666", font=subtext_font)
+    
+    # Draw CTA button (lower third)
+    button_width = 500
+    button_height = 90
+    button_x = (WIDTH - button_width) // 2
+    button_y = 800
+    
+    draw.rounded_rectangle(
+        [(button_x, button_y), (button_x + button_width, button_y + button_height)],
+        radius=45,
+        fill=GREEN
+    )
+    
+    cta_text = "View Portfolio"
+    cta_bbox = draw.textbbox((0, 0), cta_text, font=subtext_font)
+    cta_width = cta_bbox[2] - cta_bbox[0]
+    cta_x = (WIDTH - cta_width) // 2
+    cta_y = button_y + 25
+    draw.text((cta_x, cta_y), cta_text, fill=WHITE, font=subtext_font)
+    
+    # Draw designer name
+    designer_y = button_y + 150
+    designer_bbox = draw.textbbox((0, 0), designer, font=subtext_font)
+    designer_width = designer_bbox[2] - designer_bbox[0]
+    designer_x = (WIDTH - designer_width) // 2
+    draw.text((designer_x, designer_y), designer, fill=NAVY, font=subtext_font)
+    
+    # Draw footer (bottom)
+    footer_y = HEIGHT - 100
+    footer_text = "Eonati.com | Hand-Picked Fiverr Pro Designers"
+    footer_bbox = draw.textbbox((0, 0), footer_text, font=footer_font)
+    footer_width = footer_bbox[2] - footer_bbox[0]
+    footer_x = (WIDTH - footer_width) // 2
+    draw.text((footer_x, footer_y), footer_text, fill="#999999", font=footer_font)
+    
+    # Save
+    safe_designer = designer.replace(" ", "_").replace("/", "_").lower()
+    filename = f"pin_{safe_designer}.png"
+    filepath = os.path.join(OUTPUT_DIR, filename)
+    img.save(filepath, "PNG")
+    print(f"✓ Created: {filename}")
+    return filepath
+
+# Generate 3 pins
+pins = [
     {
-        'filename': 'pin_001_trust.jpg',
-        'headline': 'Your Logo Might Be\nLosing Customers',
-        'subtext': '75% of consumers judge credibility\nby design alone',
-        'cta': 'Find Your Designer',
-        'designer': 'Alestra',
-        'color': 'primary',
+        "headline": "The $175 Secret to a High-End Brand Identity",
+        "subtext": "Luxury branding without the agency price tag. Vetted by experts.",
+        "price": "175",
+        "badge": "Elite / Luxury",
+        "designer": "Valeriia T",
+        "color_scheme": "luxury"
     },
     {
-        'filename': 'pin_002_startup.jpg',
-        'headline': 'Startup Logo Design\nFrom €23',
-        'subtext': '24hr delivery • 9,300+ reviews\nMinimalist • Modern • Clean',
-        'cta': 'Hire Juhi',
-        'designer': 'Juhi',
-        'color': 'accent',
+        "headline": "Professional Custom Logo Design for Just $113",
+        "subtext": "Most Popular choice for entrepreneurs. 30,000+ happy clients.",
+        "price": "113",
+        "badge": "Most Popular",
+        "designer": "Alestra Agency",
+        "color_scheme": "value"
     },
     {
-        'filename': 'pin_003_luxury.jpg',
-        'headline': 'Luxury Branding\nfor Premium Brands',
-        'subtext': 'Beauty • Fashion • High-End Products\n10+ years experience',
-        'cta': 'Hire Valeriia',
-        'designer': 'Valeriia',
-        'color': 'gold',
-    },
-    {
-        'filename': 'pin_004_before_after.jpg',
-        'headline': 'Before vs After\nLogo Redesign',
-        'subtext': 'See the transformation a pro\ndesigner can make',
-        'cta': 'View Examples',
-        'designer': 'All',
-        'color': 'primary',
-    },
-    {
-        'filename': 'pin_005_cheap_vs_premium.jpg',
-        'headline': 'Cheap Logo vs\nPremium Logo',
-        'subtext': 'We tested both. The results\nmight surprise you.',
-        'cta': 'Read the Study',
-        'designer': 'All',
-        'color': 'rose',
-    },
-    {
-        'filename': 'pin_006_first_impressions.jpg',
-        'headline': 'Customers Judge\nYour Business in Seconds',
-        'subtext': 'Make it count with professional\nbranding',
-        'cta': 'Start Now',
-        'designer': 'Alestra',
-        'color': 'primary',
-    },
-    {
-        'filename': 'pin_007_minimalist.jpg',
-        'headline': 'Minimalist Logo\nTrends 2026',
-        'subtext': 'Clean • Simple • Scalable\nWhat works for startups',
-        'cta': 'See Trends',
-        'designer': 'Juhi',
-        'color': 'accent',
-    },
-    {
-        'filename': 'pin_008_trust.jpg',
-        'headline': 'How Better Branding\nBuilds Trust',
-        'subtext': 'Professional design can increase\nconversions by 33%',
-        'cta': 'Learn More',
-        'designer': 'All',
-        'color': 'primary',
-    },
-    {
-        'filename': 'pin_009_fiverr_pro.jpg',
-        'headline': 'Best Fiverr Pro\nLogo Designers 2026',
-        'subtext': 'We analyzed 500+ designers\nto find the top 3',
-        'cta': 'See the List',
-        'designer': 'All',
-        'color': 'gold',
-    },
-    {
-        'filename': 'pin_010_24hr.jpg',
-        'headline': 'Logo in 24 Hours.\nSeriously.',
-        'subtext': 'Fast delivery without sacrificing\nquality',
-        'cta': 'Get Started',
-        'designer': 'Juhi',
-        'color': 'accent',
+        "headline": "How to Launch a Brand for Under $25",
+        "subtext": "Perfect for startups. Fast delivery. Professional quality.",
+        "price": "23",
+        "badge": "Best for Startups",
+        "designer": "Juhi / Explorance",
+        "color_scheme": "startup"
     },
 ]
 
+print(f"\n📌 Generating Pinterest pins in: {OUTPUT_DIR}\n")
 
-def create_pin(pin_data):
-    """Create a single pin image"""
-    print(f"  Creating {pin_data['filename']}...")
-    
-    # Create base image with gradient
-    img = Image.new('RGB', (PIN_WIDTH, PIN_HEIGHT), COLORS['bg_dark'])
-    draw = ImageDraw.Draw(img)
-    
-    # Draw gradient background
-    for y in range(PIN_HEIGHT):
-        ratio = y / PIN_HEIGHT
-        r = int(COLORS['bg_gradient_1'][1:3], 16) * (1 - ratio) + int(COLORS['bg_gradient_2'][1:3], 16) * ratio
-        g = int(COLORS['bg_gradient_1'][3:5], 16) * (1 - ratio) + int(COLORS['bg_gradient_2'][3:5], 16) * ratio
-        b = int(COLORS['bg_gradient_1'][5:7], 16) * (1 - ratio) + int(COLORS['bg_gradient_2'][5:7], 16) * ratio
-        draw.line([(0, y), (PIN_WIDTH, y)], fill=(int(r), int(g), int(b)))
-    
-    # Add accent circle/shape
-    accent_color = COLORS.get(pin_data['color'], COLORS['primary'])
-    draw.ellipse([PIN_WIDTH - 300, -100, PIN_WIDTH + 100, 300], fill=accent_color + '20')
-    
-    # Try to load fonts (fallback to default if not available)
-    try:
-        font_headline = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 72)
-        font_subtext = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 36)
-        font_cta = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 42)
-        font_brand = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 32)
-    except:
-        font_headline = ImageFont.load_default()
-        font_subtext = ImageFont.load_default()
-        font_cta = ImageFont.load_default()
-        font_brand = ImageFont.load_default()
-    
-    # Calculate text positions (centered)
-    headline_lines = pin_data['headline'].split('\n')
-    subtext_lines = pin_data['subtext'].split('\n')
-    
-    # Draw headline
-    y_pos = 400
-    for line in headline_lines:
-        bbox = draw.textbbox((0, 0), line, font=font_headline)
-        text_width = bbox[2] - bbox[0]
-        x = (PIN_WIDTH - text_width) // 2
-        draw.text((x, y_pos), line, fill=COLORS['white'], font=font_headline)
-        y_pos += 90
-    
-    # Draw subtext
-    y_pos += 80
-    for line in subtext_lines:
-        bbox = draw.textbbox((0, 0), line, font=font_subtext)
-        text_width = bbox[2] - bbox[0]
-        x = (PIN_WIDTH - text_width) // 2
-        draw.text((x, y_pos), line, fill=COLORS['text_gray'], font=font_subtext)
-        y_pos += 50
-    
-    # Draw CTA button
-    y_pos += 120
-    button_width = 500
-    button_height = 80
-    button_x = (PIN_WIDTH - button_width) // 2
-    
-    # Button background
-    draw.rounded_rectangle(
-        [button_x, y_pos, button_x + button_width, y_pos + button_height],
-        radius=12,
-        fill=accent_color
-    )
-    
-    # Button text
-    bbox = draw.textbbox((0, 0), pin_data['cta'], font=font_cta)
-    text_width = bbox[2] - bbox[0]
-    text_x = (PIN_WIDTH - text_width) // 2
-    text_y = y_pos + (button_height - 50) // 2
-    draw.text((text_x, text_y), pin_data['cta'], fill=COLORS['white'], font=font_cta)
-    
-    # Draw Eonati branding at bottom
-    brand_y = PIN_HEIGHT - 150
-    bbox = draw.textbbox((0, 0), 'Eonati', font=font_brand)
-    text_width = bbox[2] - bbox[0]
-    brand_x = (PIN_WIDTH - text_width) // 2
-    draw.text((brand_x, brand_y), 'Eonati', fill=COLORS['white'], font=font_brand)
-    
-    # Tagline
-    tagline = 'Find elite Fiverr Pro designers'
-    bbox = draw.textbbox((0, 0), tagline, font=font_subtext)
-    text_width = bbox[2] - bbox[0]
-    tagline_x = (PIN_WIDTH - text_width) // 2
-    draw.text((tagline_x, brand_y + 45), tagline, fill=COLORS['text_gray'], font=font_subtext)
-    
-    # Save
-    output_path = os.path.join(OUTPUT_DIR, pin_data['filename'])
-    img.save(output_path, 'JPEG', quality=90)
-    print(f"  ✓ Saved: {output_path}")
-    
-    return output_path
+for pin in pins:
+    create_pin(**pin)
 
-
-def main():
-    print("=" * 60)
-    print("EONATI PIN IMAGE GENERATOR")
-    print("=" * 60)
-    print(f"Output: {OUTPUT_DIR}")
-    print(f"Pins to create: {len(PINS)}")
-    print(f"Dimensions: {PIN_WIDTH}x{PIN_HEIGHT}px")
-    print("=" * 60)
-    print()
-    
-    created = []
-    for pin in PINS:
-        path = create_pin(pin)
-        created.append(path)
-        print()
-    
-    print("=" * 60)
-    print("COMPLETE")
-    print(f"Created: {len(created)} pin images")
-    print(f"Location: {OUTPUT_DIR}")
-    print("=" * 60)
-    
-    return created
-
-
-if __name__ == '__main__':
-    main()
+print(f"\n✅ All pins generated! Upload to Pinterest with these links:")
+print(f"\nValeriia T: {LINKS['valeriia']}")
+print(f"Alestra Agency: {LINKS['alestra']}")
+print(f"Juhi / Explorance: {LINKS['juhi']}")

@@ -1,10 +1,13 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useState } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 export default function FAQ() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+
   const faqs = [
     {
       question: 'What is Eonati?',
@@ -16,7 +19,7 @@ export default function FAQ() {
     },
     {
       question: 'How much does a logo cost?',
-      answer: 'Prices range from €23 for startup packages to €400+ for full brand identity. Each designer offers multiple tiers to fit different budgets.',
+      answer: 'Prices range from $23 for startup packages to $400+ for full brand identity. Each designer offers multiple tiers to fit different budgets.',
     },
     {
       question: 'How long does it take?',
@@ -41,7 +44,7 @@ export default function FAQ() {
   ]
 
   return (
-    <main className="min-h-screen bg-eonati-bg">
+    <main className="min-h-screen bg-white">
       <Navbar />
       
       <section className="pt-32 pb-20 px-4">
@@ -49,25 +52,54 @@ export default function FAQ() {
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl font-display font-bold text-white mb-6 text-center"
+            className="text-4xl sm:text-5xl font-bold text-slate-navy mb-6 text-center"
+            style={{ color: '#2D3E50' }}
           >
             Frequently Asked Questions
           </motion.h1>
-          <p className="text-xl text-gray-300 text-center mb-12">
+          <p className="text-xl text-gray-600 text-center mb-12">
             Everything you need to know about hiring a professional logo designer.
           </p>
           
-          <div className="space-y-6">
+          <div className="space-y-4">
             {faqs.map((faq, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="bg-white/5 border border-white/10 rounded-xl p-6"
+                className="border border-gray-200 rounded-xl overflow-hidden"
               >
-                <h3 className="text-lg font-semibold text-white mb-3">{faq.question}</h3>
-                <p className="text-gray-400">{faq.answer}</p>
+                <button
+                  onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                  className="w-full px-6 py-4 text-left bg-white hover:bg-gray-50 transition flex items-center justify-between"
+                >
+                  <h3 className="text-lg font-semibold text-slate-navy" style={{ color: '#2D3E50' }}>
+                    {faq.question}
+                  </h3>
+                  <span 
+                    className="text-2xl font-bold transition-transform duration-300"
+                    style={{ 
+                      color: openIndex === index ? '#1DBF73' : '#2D3E50',
+                      transform: openIndex === index ? 'rotate(45deg)' : 'rotate(0deg)'
+                    }}
+                  >
+                    +
+                  </span>
+                </button>
+                <motion.div
+                  initial={false}
+                  animate={{
+                    height: openIndex === index ? 'auto' : 0,
+                    opacity: openIndex === index ? 1 : 0
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden"
+                >
+                  <p className="px-6 pb-4 text-gray-600 leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </motion.div>
               </motion.div>
             ))}
           </div>

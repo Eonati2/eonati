@@ -21,7 +21,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold text-slate-navy hover:text-fiverr-green transition">
+          <Link href="index.html" className="text-2xl font-bold text-slate-navy hover:text-fiverr-green transition">
             Eonati
           </Link>
           
@@ -62,6 +62,20 @@ export default function Navbar() {
               )}
             </svg>
           </button>
+        </div>
+      </div>
+
+      {/* TRUST BAR - Appears on ALL pages below nav */}
+      <div className="border-t border-gray-100 bg-white py-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center gap-2" style={{ color: '#2D3E50', fontSize: '0.85rem' }}>
+            <span>★★★★★</span>
+            <span className="font-semibold">4.9/5 Average Rating</span>
+            <span className="text-gray-400">|</span>
+            <span className="font-semibold">30,000+ Entrepreneurs Trusted</span>
+            <span className="text-gray-400">|</span>
+            <span className="font-semibold">Fiverr Pro Verified</span>
+          </div>
         </div>
       </div>
 

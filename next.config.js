@@ -2,11 +2,12 @@
 const nextConfig = {
   output: 'export',
   distDir: 'out',
+  basePath: '/eonati',
+  assetPrefix: '/eonati/',
   images: {
     unoptimized: true,
   },
   trailingSlash: false,
-  assetPrefix: '/eonati/',
 }
 
 module.exports = nextConfig

@@ -7,10 +7,23 @@
   --background-rgb: 255, 255, 255;
 }
 
+/* GLOBAL DESIGN LOCK - Force readability on all pages */
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  color: rgb(var(--foreground-rgb)) !important;
+  background: rgb(var(--background-rgb)) !important;
   min-height: 100vh;
+}
+
+/* Ensure text never turns invisible on any sub-page */
+section, div, p, h1, h2, h3, h4, h5, h6, span, li, a {
+  color: #2D3E50 !important;
+  background-color: #FFFFFF !important;
+}
+
+/* Exception: Keep white text on dark backgrounds */
+.bg-slate-navy *, .bg-fiverr-green * {
+  color: #FFFFFF !important;
+  background-color: transparent !important;
 }
 
 @layer utilities {
